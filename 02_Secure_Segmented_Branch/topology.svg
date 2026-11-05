@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="950" viewBox="0 0 1450 950">
+<rect width="1450" height="950" fill="#f5f7fb"/>
+<style>text{font-family:Arial,sans-serif;fill:#172b42}.title{font-size:24px;font-weight:bold}.small{font-size:12px}.name{font-size:15px;font-weight:bold}</style>
+<text x="35" y="38" class="title">02 | Secure Segmented Branch</text>
+<rect x="390" y="90" width="540" height="155" rx="12" fill="rgb(225, 242, 239)" stroke="#b1c1d0"/>
+<text x="402" y="114" class="name">ROUTER ON A STICK</text>
+<text x="402" y="134" class="small">802.1Q VLANs 10 / 20 / 30 / 40 / 99 | native 999</text>
+<rect x="200" y="300" width="850" height="175" rx="12" fill="rgb(232, 237, 247)" stroke="#b1c1d0"/>
+<text x="212" y="324" class="name">ACCESS FABRIC</text>
+<text x="212" y="344" class="small">Trusted uplinks | DHCP snooping + DAI on user VLANs</text>
+<rect x="1090" y="300" width="270" height="175" rx="12" fill="rgb(252, 239, 214)" stroke="#b1c1d0"/>
+<text x="1102" y="324" class="name">VLAN 99 MGMT</text>
+<text x="1102" y="344" class="small">10.20.99.0/24</text>
+<rect x="110" y="555" width="220" height="185" rx="12" fill="rgb(223, 238, 252)" stroke="#b1c1d0"/>
+<text x="122" y="579" class="name">VLAN 10 USERS</text>
+<text x="122" y="599" class="small">10.20.10.0/24</text>
+<rect x="340" y="555" width="220" height="185" rx="12" fill="rgb(227, 243, 231)" stroke="#b1c1d0"/>
+<text x="352" y="579" class="name">VLAN 20 FINANCE</text>
+<text x="352" y="599" class="small">10.20.20.0/24</text>
+<rect x="620" y="555" width="220" height="185" rx="12" fill="rgb(239, 231, 251)" stroke="#b1c1d0"/>
+<text x="632" y="579" class="name">VLAN 30 IT</text>
+<text x="632" y="599" class="small">10.20.30.0/24</text>
+<rect x="850" y="555" width="220" height="185" rx="12" fill="rgb(253, 230, 230)" stroke="#b1c1d0"/>
+<text x="862" y="579" class="name">VLAN 40 GUEST</text>
+<text x="862" y="599" class="small">10.20.40.0/24</text>
+<line x1="420" y1="390" x2="220" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="420" y1="390" x2="450" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="930" y1="390" x2="730" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="930" y1="390" x2="960" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="660" y1="170" x2="420" y2="390" stroke="#6f8398" stroke-width="2"/>
+<line x1="420" y1="390" x2="930" y2="390" stroke="#6f8398" stroke-width="2"/>
+<line x1="930" y1="390" x2="1200" y2="390" stroke="#6f8398" stroke-width="2"/>
+<rect x="612" y="150" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="660" y="175" text-anchor="middle" class="small">BRANCH-R1</text>
+<text x="660" y="208" text-anchor="middle" class="small">2911</text>
+<text x="660" y="227" text-anchor="middle" class="small"></text>
+<rect x="372" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="420" y="395" text-anchor="middle" class="small">BRANCH-SW1</text>
+<text x="420" y="428" text-anchor="middle" class="small">2960-24TT</text>
+<text x="420" y="447" text-anchor="middle" class="small"></text>
+<rect x="882" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="930" y="395" text-anchor="middle" class="small">BRANCH-SW2</text>
+<text x="930" y="428" text-anchor="middle" class="small">2960-24TT</text>
+<text x="930" y="447" text-anchor="middle" class="small"></text>
+<rect x="172" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="220" y="655" text-anchor="middle" class="small">USER-PC1</text>
+<text x="220" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="220" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="402" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="450" y="655" text-anchor="middle" class="small">FINANCE-PC</text>
+<text x="450" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="450" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="682" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="730" y="655" text-anchor="middle" class="small">IT-PC</text>
+<text x="730" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="730" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="912" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="960" y="655" text-anchor="middle" class="small">GUEST-PC</text>
+<text x="960" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="960" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="1152" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="1200" y="395" text-anchor="middle" class="small">DNS-SRV</text>
+<text x="1200" y="428" text-anchor="middle" class="small">Server-PT</text>
+<text x="1200" y="447" text-anchor="middle" class="small">10.20.99.10/24</text>
+<text x="35" y="920" class="small">Schematic | Exact interface pairs: TOPOLOGY_AND_CABLING.txt | Acceptance tests: VERIFICATION.txt</text></svg>

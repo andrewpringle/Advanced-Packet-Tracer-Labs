@@ -1,0 +1,9 @@
+SAVE A BASELINE COPY FIRST. APPLY ONE FAULT AT A TIME.
+
+1. BRANCH-SW1: interface GigabitEthernet0/1 / no ip dhcp snooping trust. Renew a local client and inspect dropped DHCP replies. Recover: ip dhcp snooping trust, then renew.
+
+2. BRANCH-SW2: interface GigabitEthernet0/1 / switchport trunk native vlan 1. Observe the mismatch warning. Recover: switchport trunk native vlan 999.
+
+3. Remove GUEST-IN from router subinterface .40 with no ip access-group GUEST-IN in. Demonstrate Guest reaches private addresses. Recover by reapplying ip access-group GUEST-IN in.
+
+4. Port security uses maximum 2 in this lab: a single replacement may not violate it. Learn two client MACs, then attach a third to the same user port; inspect restrict counters. Restore original endpoint; remove unwanted sticky entries explicitly or reload the baseline copy.

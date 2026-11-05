@@ -1,0 +1,18 @@
+Secure Segmented Branch
+
+BRANCH-SW1 FastEthernet0/5 <-> USER-PC1 FastEthernet0 | Access VLAN 10
+BRANCH-SW1 FastEthernet0/6 <-> FINANCE-PC FastEthernet0 | Access VLAN 20
+BRANCH-SW2 FastEthernet0/5 <-> IT-PC FastEthernet0 | Access VLAN 30
+BRANCH-SW2 FastEthernet0/6 <-> GUEST-PC FastEthernet0 | Access VLAN 40
+BRANCH-R1 GigabitEthernet0/0 <-> BRANCH-SW1 GigabitEthernet0/1 | 802.1Q router on a stick
+BRANCH-SW1 GigabitEthernet0/2 <-> BRANCH-SW2 GigabitEthernet0/1 | 802.1Q trunk
+BRANCH-SW2 FastEthernet0/10 <-> DNS-SRV FastEthernet0 | VLAN 99 / static server
+
+SEGMENTS
+ROUTER ON A STICK: 802.1Q VLANs 10 / 20 / 30 / 40 / 99 | native 999
+ACCESS FABRIC: Trusted uplinks | DHCP snooping + DAI on user VLANs
+VLAN 99 MGMT: 10.20.99.0/24
+VLAN 10 USERS: 10.20.10.0/24
+VLAN 20 FINANCE: 10.20.20.0/24
+VLAN 30 IT: 10.20.30.0/24
+VLAN 40 GUEST: 10.20.40.0/24

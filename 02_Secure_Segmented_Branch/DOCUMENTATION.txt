@@ -1,0 +1,93 @@
+02 - Secure Segmented Branch
+============================================================================
+
+DELIVERABLE AND STATUS
+Native Packet Tracer .pkt file generated for installed Packet Tracer 9.0.1.
+Devices, links, VLAN database, running/startup configurations, host settings,
+server settings, notes and segment backgrounds are included.
+Native open/save and principal saved-configuration checks completed in
+Packet Tracer 9.0.1. End-to-end traffic and failover tests remain pending.
+See VALIDATION.txt for the exact completed checks and practical limits.
+
+OPEN AND USE
+1. Open 02_Secure_Segmented_Branch.pkt in Packet Tracer 9.0.1.
+2. Allow link negotiation, STP, routing, HSRP and DHCP to converge.
+3. On DHCP PCs, Desktop > IP Configuration > DHCP; renew if necessary.
+4. Follow VERIFICATION.txt. Record actual outputs in your own evidence copy.
+5. Save a baseline copy before FAULTS_AND_RECOVERY.txt exercises.
+6. Reference CLI files are in configs/. From privileged EXEC use configure
+   terminal, paste the configuration through end, then copy running-config
+   startup-config. Do not paste the Server-PT settings as IOS commands.
+
+DEVICE NAMING AND ADDRESSING
+BRANCH-R1        2911         IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-SW1       2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-SW2       2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+USER-PC1         PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+FINANCE-PC       PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+IT-PC            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+GUEST-PC         PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+DNS-SRV          Server-PT    IPv4: 10.20.99.10/24; gateway: 10.20.99.1
+
+SEGMENTATION AND LABELS
+ROUTER ON A STICK: 802.1Q VLANs 10 / 20 / 30 / 40 / 99 | native 999
+ACCESS FABRIC: Trusted uplinks | DHCP snooping + DAI on user VLANs
+VLAN 99 MGMT: 10.20.99.0/24
+VLAN 10 USERS: 10.20.10.0/24
+VLAN 20 FINANCE: 10.20.20.0/24
+VLAN 30 IT: 10.20.30.0/24
+VLAN 40 GUEST: 10.20.40.0/24
+Native port labels are enabled. Each used IOS physical interface description
+names its remote device and port. Unused switch ports are shut and parked in
+VLAN 999; VLAN 999 has no routed gateway. Link lights and port labels can be
+toggled in Packet Tracer preferences. topology.svg is an additional schematic.
+
+CABLING
+BRANCH-SW1 FastEthernet0/5 <-> USER-PC1 FastEthernet0 | Access VLAN 10
+BRANCH-SW1 FastEthernet0/6 <-> FINANCE-PC FastEthernet0 | Access VLAN 20
+BRANCH-SW2 FastEthernet0/5 <-> IT-PC FastEthernet0 | Access VLAN 30
+BRANCH-SW2 FastEthernet0/6 <-> GUEST-PC FastEthernet0 | Access VLAN 40
+BRANCH-R1 GigabitEthernet0/0 <-> BRANCH-SW1 GigabitEthernet0/1 | 802.1Q router on a stick
+BRANCH-SW1 GigabitEthernet0/2 <-> BRANCH-SW2 GigabitEthernet0/1 | 802.1Q trunk
+BRANCH-SW2 FastEthernet0/10 <-> DNS-SRV FastEthernet0 | VLAN 99 / static server
+
+DESIGN CORRECTIONS FROM THE SUPPLIED PROJECT
+- Added DHCP client-to-server permit entries before source-restricted inbound ACLs, preventing DHCP discovery from being silently denied.
+- Added the explicit Guest DNS exception to 10.20.99.10 before RFC1918 denies. Guest access to other enterprise services remains blocked.
+- Finance ACL now allows TCP ACK/RST and ICMP echo replies to Users before denying new Finance-to-Users flows. General bidirectional UDP sessions are not made stateful.
+- SSH VTY access is limited to the IT subnet on all three network devices. Inter-VLAN access remains controlled by the documented Finance and Guest rules.
+- The supplied topology has no Internet uplink. Guest Internet access is out of scope and is not advertised as working.
+
+HOST AND SERVER SERVICES
+- DNS-SRV: 10.20.99.10/24, gateway 10.20.99.1; DNS and HTTP enabled. DNS A record: branch.lab -> 10.20.99.10.
+- All four PCs: IPv4 DHCP. Expected addresses begin at .21 in their own subnet; default gateways are 10.20.<VLAN>.1; DNS 10.20.99.10.
+- DAI relies on DHCP snooping bindings. Renew DHCP after a switch reload before ARP validation; statically addressed user endpoints need an explicit ARP ACL or a documented trust exception.
+
+ACCESS CREDENTIALS (ISOLATED LAB ONLY)
+SSH username: netadmin | Password: CiscoLab123!
+Enable secret: LabEnable123!
+Router/switch console remains available locally. Management access follows
+the ACLs included in each configuration. RSA keys may need regeneration if
+your Packet Tracer version does not restore the key-generation command:
+configure terminal / crypto key generate rsa modulus 1024 / end.
+
+LAB LIMITS
+ACLs here are stateless IOS ACLs. TCP established checks ACK/RST flags and is
+not a stateful firewall. DNS/NTP/syslog are simulated services. Documentation
+does not claim real Internet access, real packet capture or production security.
+The configurations use example address ranges and shared training passwords.
+Packet Tracer is a simulator: verify platform-specific DAI, SPAN, ACL logging,
+IPv6/SDM and HSRP behavior using the commands in VERIFICATION.txt.
+
+PACKET TRACER 9.0.1 COMPATIBILITY CORRECTION
+Native open/save testing rejected ACL statements with the log suffix.
+The suffix has been removed so the deny statements are actually installed.
+Use show access-lists hit counters and Simulation Mode for ACL-deny evidence.
+Syslog still covers supported interface/system/port-security events; ACL-deny
+syslog export is not claimed. Never treat an unsupported log keyword as safe: it
+can cause the entire deny ACE to be dropped when loading a configuration.
+
+DNS RECORDS INCLUDED
+DNS-SRV: branch.lab -> 10.20.99.10
+
+PDU-LAB is the simulator-created rack power utility; it has no IP or data link.

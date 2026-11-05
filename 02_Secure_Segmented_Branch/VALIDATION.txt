@@ -1,0 +1,23 @@
+VALIDATION STATUS
+
+COMPLETED
+- Each lab network was opened and saved in installed Cisco Packet Tracer 9.0.1.
+- Native saved running configurations were checked for the principal features.
+- Campus SDM/IPv6, HSRP, OSPF and EtherChannel settings were retained.
+- Branch deny ACEs, DHCP snooping/DAI and IT management ACLs were retained.
+- DMZ static TCP 80/443 mappings and outside/DMZ deny rules were retained.
+- SOC SPAN sources/destination, blocking ACLs, timestamps, logging and NTP retained.
+- WAN IPv4/IPv6 primary/backup routing and DHCP relay settings were retained.
+- Final container/XML, identifiers, links/ports, address plans and file checksums checked.
+- DNS A records and SSH saved state were provisioned; they require traffic tests.
+
+NOT RUN / NO CLAIMED RESULTS
+- End-to-end pings, HTTP/HTTPS and DNS lookups; SSH authentication sessions.
+- DHCP lease acquisition/renewal, snooping bindings and DAI packet disposition.
+- STP/HSRP/OSPF operational neighbor/role checks and timed failure/recovery tests.
+- Central syslog event arrival, SPAN traffic display and security-counter tests.
+- Visual inspection of the complete Packet Tracer canvas (the hidden app did not
+  produce a usable workspace screenshot). topology.svg is a separate schematic.
+
+VERIFICATION.txt contains acceptance steps and expected outcomes, not captured
+traffic evidence. Record actual outputs before claiming a fully tested lab.
