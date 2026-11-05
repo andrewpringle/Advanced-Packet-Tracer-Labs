@@ -1,5 +1,7 @@
 VALIDATION REPORT - 2026-11-05
 
+**Verification was done using automation with GPT-6.1 Sol Model**
+
 Native network open/save and principal configuration retention were checked in
 Cisco Packet Tracer 9.0.1. Final metadata, DNS records and SSH state were checked
 structurally. End-to-end traffic/failover tests and full canvas visual inspection
