@@ -1,0 +1,93 @@
+! ISP1: native Packet Tracer accepted running configuration.
+! Enter configure terminal before pasting. Save with copy running-config startup-config.
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ISP1
+!
+!
+!
+enable secret 5 $1$mERr$C7wac.PH39WKIwqqjtQE8/
+!
+!
+!
+!
+!
+!
+ip cef
+ipv6 unicast-routing
+!
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn LAB01000000
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description TO-EDGE1-GigabitEthernet0/0
+ ip address 198.51.100.1 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:100::1/64
+!
+interface GigabitEthernet0/1
+ description ISP-SERVICE-NET
+ ip address 203.0.113.1 255.255.255.0
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:113::1/64
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+ip classless
+ip route 10.10.0.0 255.255.0.0 198.51.100.2 
+!
+ip flow-export version 9
+!
+ipv6 route 2001:DB8::/32 2001:DB8:FFFF:100::2
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

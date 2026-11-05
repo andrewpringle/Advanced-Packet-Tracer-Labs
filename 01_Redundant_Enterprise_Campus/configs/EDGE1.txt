@@ -1,0 +1,117 @@
+! EDGE1: native Packet Tracer accepted running configuration.
+! Enter configure terminal before pasting. Save with copy running-config startup-config.
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname EDGE1
+!
+!
+!
+enable secret 5 $1$mERr$C7wac.PH39WKIwqqjtQE8/
+!
+!
+!
+!
+!
+!
+ip cef
+ipv6 unicast-routing
+!
+no ipv6 cef
+!
+!
+!
+username netadmin privilege 15 secret 5 $1$mERr$1j5AfM/N1KwdPiw15eETu/
+!
+!
+license udi pid CISCO2911/K9 sn LAB01000001
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name campus.lab
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description TO-ISP1-GigabitEthernet0/0
+ ip address 198.51.100.2 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:100::2/64
+!
+interface GigabitEthernet0/1
+ description TO-CORE1-GigabitEthernet0/2
+ ip address 10.255.0.1 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:1::1/64
+ ipv6 ospf 10 area 0
+!
+interface GigabitEthernet0/2
+ description TO-CORE2-GigabitEthernet0/2
+ ip address 10.255.0.5 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:2::1/64
+ ipv6 ospf 10 area 0
+!
+interface Vlan1
+ no ip address
+!
+router ospf 10
+ router-id 10.10.10.10
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/2
+ network 10.255.0.0 0.0.0.3 area 0
+ network 10.255.0.4 0.0.0.3 area 0
+ default-information originate
+!
+ipv6 router ospf 10
+ router-id 10.10.10.10
+ default-information originate
+ log-adjacency-changes
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 198.51.100.1 
+!
+ip flow-export version 9
+!
+ipv6 route ::/0 2001:DB8:FFFF:100::1
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+!
+end

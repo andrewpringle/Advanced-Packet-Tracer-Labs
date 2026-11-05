@@ -1,0 +1,320 @@
+! CORE1: native Packet Tracer accepted running configuration.
+! Enter configure terminal before pasting. Save with copy running-config startup-config.
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname CORE1
+!
+!
+no profinet
+enable secret 5 $1$mERr$C7wac.PH39WKIwqqjtQE8/
+!
+!
+ip dhcp excluded-address 10.10.10.1 10.10.10.20
+ip dhcp excluded-address 10.10.10.121 10.10.10.254
+ip dhcp excluded-address 10.10.20.1 10.10.20.20
+ip dhcp excluded-address 10.10.20.121 10.10.20.254
+ip dhcp excluded-address 10.10.30.1 10.10.30.20
+ip dhcp excluded-address 10.10.30.121 10.10.30.254
+!
+ip dhcp pool VLAN10
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.1
+ dns-server 10.10.20.10
+ip dhcp pool VLAN20
+ network 10.10.20.0 255.255.255.0
+ default-router 10.10.20.1
+ dns-server 10.10.20.10
+ip dhcp pool VLAN30
+ network 10.10.30.0 255.255.255.0
+ default-router 10.10.30.1
+ dns-server 10.10.20.10
+!
+!
+ip routing
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+username netadmin privilege 15 secret 5 $1$mERr$1j5AfM/N1KwdPiw15eETu/
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name campus.lab
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,30 priority 4096
+spanning-tree vlan 20,99 priority 8192
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ description TO-ACCESS1-FastEthernet0/1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,99,999
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ description TO-ACCESS2-FastEthernet0/1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,99,999
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/4
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/5
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/6
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/7
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/8
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/9
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/10
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/11
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/12
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/13
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/14
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/15
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/16
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/17
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/18
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/19
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/20
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/21
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/22
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/23
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/24
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/1
+ description TO-CORE2-GigabitEthernet0/1
+ no switchport
+ ip address 10.255.0.10 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:10::2/64
+ ipv6 ospf 10 area 0
+!
+interface GigabitEthernet0/2
+ description TO-EDGE1-GigabitEthernet0/1
+ no switchport
+ ip address 10.255.0.2 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:1::2/64
+ ipv6 ospf 10 area 0
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan10
+ description USERS-GATEWAY
+ mac-address 00e0.a36c.7101
+ ip address 10.10.10.2 255.255.255.0
+ ipv6 address 2001:DB8:10::2/64
+ ipv6 ospf 10 area 0
+ standby version 2
+ standby 10 ip 10.10.10.1
+ standby 10 priority 120
+ standby 10 preempt
+!
+interface Vlan20
+ description SERVERS-GATEWAY
+ mac-address 00e0.a36c.7102
+ ip address 10.10.20.2 255.255.255.0
+ ipv6 address 2001:DB8:20::2/64
+ ipv6 ospf 10 area 0
+ standby version 2
+ standby 20 ip 10.10.20.1
+ standby 20 preempt
+!
+interface Vlan30
+ description VOICE-LAB-GATEWAY
+ mac-address 00e0.a36c.7103
+ ip address 10.10.30.2 255.255.255.0
+ ipv6 address 2001:DB8:30::2/64
+ ipv6 ospf 10 area 0
+ standby version 2
+ standby 30 ip 10.10.30.1
+ standby 30 priority 120
+ standby 30 preempt
+!
+interface Vlan99
+ description MANAGEMENT-GATEWAY
+ mac-address 00e0.a36c.7104
+ ip address 10.10.99.2 255.255.255.0
+ ipv6 address 2001:DB8:99::2/64
+ ipv6 ospf 10 area 0
+ standby version 2
+ standby 99 ip 10.10.99.1
+ standby 99 preempt
+!
+router ospf 10
+ router-id 1.1.1.1
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/2
+ network 10.10.10.0 0.0.0.255 area 0
+ network 10.10.20.0 0.0.0.255 area 0
+ network 10.10.30.0 0.0.0.255 area 0
+ network 10.10.99.0 0.0.0.255 area 0
+ network 10.255.0.8 0.0.0.3 area 0
+ network 10.255.0.0 0.0.0.3 area 0
+!
+ipv6 router ospf 10
+ router-id 1.1.1.1
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/2
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+!
+!
+end
