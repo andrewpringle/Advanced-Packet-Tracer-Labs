@@ -1,0 +1,13 @@
+Resilient WAN Failover
+
+HQ-R1 GigabitEthernet0/0 <-> HQ-SW1 GigabitEthernet0/1 | 802.1Q HQ VLAN10 / native999
+HQ-R1 GigabitEthernet0/1 <-> BRANCH-R1 GigabitEthernet0/0 | PRIMARY 10.255.10.0/30 / OSPFv2/v3
+HQ-R1 GigabitEthernet0/2 <-> BRANCH-R1 GigabitEthernet0/1 | BACKUP 10.255.20.0/30 / static AD200
+BRANCH-R1 GigabitEthernet0/2 <-> BRANCH-SW1 GigabitEthernet0/1 | 802.1Q branch VLAN10 / native999
+HQ-SW1 FastEthernet0/5 <-> HQ-PC FastEthernet0 | HQ VLAN10
+HQ-SW1 FastEthernet0/6 <-> DHCP-SRV FastEthernet0 | HQ VLAN10 / central DHCP
+BRANCH-SW1 FastEthernet0/5 <-> BRANCH-PC FastEthernet0 | Branch VLAN10 / DHCP relay
+
+SEGMENTS
+HEADQUARTERS: VLAN 10: 10.70.10.0/24 | 2001:db8:70:10::/64
+BRANCH: VLAN 10: 10.80.10.0/24 | 2001:db8:80:10::/64

@@ -1,0 +1,18 @@
+SSH AND CLI IMPORT
+
+Native .pkt files include per-device simulated SSH key state, SSH v2 and local
+netadmin login. netadmin password: CiscoLab123! ; enable secret: LabEnable123!
+SSH sessions have not been exercised as traffic tests.
+
+When rebuilding from configuration text alone, key material is not contained
+in show running-config. After applying the hostname and domain name, enter:
+configure terminal
+crypto key generate rsa
+  (when asked for modulus size, enter 1024)
+ip ssh version 2
+end
+copy running-config startup-config
+
+Packet Tracer key sizes and commands differ from real production recommendations.
+These files use shared training passwords inside an isolated simulation.
+On branch devices only VLAN 30 IT sources are admitted to the VTYs.

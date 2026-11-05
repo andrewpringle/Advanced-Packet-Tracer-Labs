@@ -1,0 +1,9 @@
+SAVE A BASELINE COPY FIRST. APPLY ONE FAULT AT A TIME.
+
+1. HQ-R1 Gi0/1 shutdown. Observe static backup route activation. Recover no shutdown; wait for OSPF.
+
+2. With primary down, remove Branch ip route 10.70.10.0 255.255.255.0 10.255.20.1 200. IPv4 HQ reachability fails. Recover that exact route before restoring primary. IPv6 has its own independent static route.
+
+3. Branch Gi0/2.10: no ip helper-address 10.70.10.10; ip helper-address 10.70.10.99. Force a DHCP release/renew. Recover by removing .99 and restoring .10. Existing valid leases may mask the fault.
+
+4. Primary down: remove Branch ipv6 route 2001:db8:70:10::/64 2001:db8:ffff:20::1 200. IPv6 fails while IPv4 can work. Recover the exact IPv6 static route.

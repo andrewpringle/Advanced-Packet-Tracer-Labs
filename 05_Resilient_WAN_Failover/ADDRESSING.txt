@@ -1,0 +1,97 @@
+Resilient WAN Failover
+
+END HOSTS
+HQ-R1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-R1        2911         IPv4: see device configuration; gateway: see configuration / DHCP
+HQ-SW1           2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-SW1       2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+HQ-PC            PC-PT        IPv4: 10.70.10.100/24; gateway: 10.70.10.1; IPv6: 2001:db8:70:10::100/64 gateway 2001:db8:70:10::1
+DHCP-SRV         Server-PT    IPv4: 10.70.10.10/24; gateway: 10.70.10.1; IPv6: 2001:db8:70:10::10/64 gateway 2001:db8:70:10::1
+BRANCH-PC        PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: 2001:db8:80:10::100/64 gateway 2001:db8:80:10::1
+
+ROUTED INTERFACES AND SVIs
+BRANCH-R1
+interface GigabitEthernet0/0
+ ip address 10.255.10.2 255.255.255.252
+ ipv6 address 2001:db8:ffff:10::2/64
+interface GigabitEthernet0/1
+ ip address 10.255.20.2 255.255.255.252
+ ipv6 address 2001:db8:ffff:20::2/64
+interface GigabitEthernet0/2
+interface GigabitEthernet0/2.10
+ ip address 10.80.10.1 255.255.255.0
+ ipv6 address 2001:db8:80:10::1/64
+interface GigabitEthernet0/2.999
+
+BRANCH-SW1
+interface GigabitEthernet0/1
+interface FastEthernet0/5
+interface Vlan10
+ ip address 10.80.10.2 255.255.255.0
+interface FastEthernet0/1
+interface FastEthernet0/2
+interface FastEthernet0/3
+interface FastEthernet0/4
+interface FastEthernet0/6
+interface FastEthernet0/7
+interface FastEthernet0/8
+interface FastEthernet0/9
+interface FastEthernet0/10
+interface FastEthernet0/11
+interface FastEthernet0/12
+interface FastEthernet0/13
+interface FastEthernet0/14
+interface FastEthernet0/15
+interface FastEthernet0/16
+interface FastEthernet0/17
+interface FastEthernet0/18
+interface FastEthernet0/19
+interface FastEthernet0/20
+interface FastEthernet0/21
+interface FastEthernet0/22
+interface FastEthernet0/23
+interface FastEthernet0/24
+interface GigabitEthernet0/2
+
+HQ-R1
+interface GigabitEthernet0/0
+interface GigabitEthernet0/0.10
+ ip address 10.70.10.1 255.255.255.0
+ ipv6 address 2001:db8:70:10::1/64
+interface GigabitEthernet0/1
+ ip address 10.255.10.1 255.255.255.252
+ ipv6 address 2001:db8:ffff:10::1/64
+interface GigabitEthernet0/2
+ ip address 10.255.20.1 255.255.255.252
+ ipv6 address 2001:db8:ffff:20::1/64
+interface GigabitEthernet0/0.999
+
+HQ-SW1
+interface GigabitEthernet0/1
+interface FastEthernet0/5
+interface FastEthernet0/6
+interface Vlan10
+ ip address 10.70.10.2 255.255.255.0
+interface FastEthernet0/1
+interface FastEthernet0/2
+interface FastEthernet0/3
+interface FastEthernet0/4
+interface FastEthernet0/7
+interface FastEthernet0/8
+interface FastEthernet0/9
+interface FastEthernet0/10
+interface FastEthernet0/11
+interface FastEthernet0/12
+interface FastEthernet0/13
+interface FastEthernet0/14
+interface FastEthernet0/15
+interface FastEthernet0/16
+interface FastEthernet0/17
+interface FastEthernet0/18
+interface FastEthernet0/19
+interface FastEthernet0/20
+interface FastEthernet0/21
+interface FastEthernet0/22
+interface FastEthernet0/23
+interface FastEthernet0/24
+interface GigabitEthernet0/2

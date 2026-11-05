@@ -1,0 +1,84 @@
+05 - Resilient WAN Failover
+============================================================================
+
+DELIVERABLE AND STATUS
+Native Packet Tracer .pkt file generated for installed Packet Tracer 9.0.1.
+Devices, links, VLAN database, running/startup configurations, host settings,
+server settings, notes and segment backgrounds are included.
+Native open/save and principal saved-configuration checks completed in
+Packet Tracer 9.0.1. End-to-end traffic and failover tests remain pending.
+See VALIDATION.txt for the exact completed checks and practical limits.
+
+OPEN AND USE
+1. Open 05_Resilient_WAN_Failover.pkt in Packet Tracer 9.0.1.
+2. Allow link negotiation, STP, routing, HSRP and DHCP to converge.
+3. On DHCP PCs, Desktop > IP Configuration > DHCP; renew if necessary.
+4. Follow VERIFICATION.txt. Record actual outputs in your own evidence copy.
+5. Save a baseline copy before FAULTS_AND_RECOVERY.txt exercises.
+6. Reference CLI files are in configs/. From privileged EXEC use configure
+   terminal, paste the configuration through end, then copy running-config
+   startup-config. Do not paste the Server-PT settings as IOS commands.
+
+DEVICE NAMING AND ADDRESSING
+HQ-R1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-R1        2911         IPv4: see device configuration; gateway: see configuration / DHCP
+HQ-SW1           2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-SW1       2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+HQ-PC            PC-PT        IPv4: 10.70.10.100/24; gateway: 10.70.10.1; IPv6: 2001:db8:70:10::100/64 gateway 2001:db8:70:10::1
+DHCP-SRV         Server-PT    IPv4: 10.70.10.10/24; gateway: 10.70.10.1; IPv6: 2001:db8:70:10::10/64 gateway 2001:db8:70:10::1
+BRANCH-PC        PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: 2001:db8:80:10::100/64 gateway 2001:db8:80:10::1
+
+SEGMENTATION AND LABELS
+HEADQUARTERS: VLAN 10: 10.70.10.0/24 | 2001:db8:70:10::/64
+BRANCH: VLAN 10: 10.80.10.0/24 | 2001:db8:80:10::/64
+Native port labels are enabled. Each used IOS physical interface description
+names its remote device and port. Unused switch ports are shut and parked in
+VLAN 999; VLAN 999 has no routed gateway. Link lights and port labels can be
+toggled in Packet Tracer preferences. topology.svg is an additional schematic.
+
+CABLING
+HQ-R1 GigabitEthernet0/0 <-> HQ-SW1 GigabitEthernet0/1 | 802.1Q HQ VLAN10 / native999
+HQ-R1 GigabitEthernet0/1 <-> BRANCH-R1 GigabitEthernet0/0 | PRIMARY 10.255.10.0/30 / OSPFv2/v3
+HQ-R1 GigabitEthernet0/2 <-> BRANCH-R1 GigabitEthernet0/1 | BACKUP 10.255.20.0/30 / static AD200
+BRANCH-R1 GigabitEthernet0/2 <-> BRANCH-SW1 GigabitEthernet0/1 | 802.1Q branch VLAN10 / native999
+HQ-SW1 FastEthernet0/5 <-> HQ-PC FastEthernet0 | HQ VLAN10
+HQ-SW1 FastEthernet0/6 <-> DHCP-SRV FastEthernet0 | HQ VLAN10 / central DHCP
+BRANCH-SW1 FastEthernet0/5 <-> BRANCH-PC FastEthernet0 | Branch VLAN10 / DHCP relay
+
+DESIGN CORRECTIONS FROM THE SUPPLIED PROJECT
+- Corrected the supplied addressing.txt branch LAN typo: LAN subinterface is Gi0/2.10; Gi0/0 is the primary WAN and cannot also be the LAN trunk.
+- Added explicit IPv6 endpoint addresses and gateways so dual-stack tests have actual source/destination hosts.
+- Configured central DHCP Server-PT scope BRANCH-USERS: 10.80.10.100-.199/24, gateway 10.80.10.1, DNS 10.70.10.10; branch helper remains on Gi0/2.10.
+- OSPFv3 LAN interfaces are passive; only the primary WAN forms neighbors. Backup is excluded from both OSPF processes and uses AD200 static routes in both directions.
+- Router trunks explicitly use unused native VLAN 999; unused switch ports are parked/shut.
+
+HOST AND SERVER SERVICES
+- DHCP-SRV: 10.70.10.10/24 and 2001:db8:70:10::10/64; gateways 10.70.10.1 and 2001:db8:70:10::1. DHCP, HTTP and DNS enabled.
+- DHCP pool BRANCH-USERS: network 10.80.10.0, mask255.255.255.0, default gateway10.80.10.1, DNS10.70.10.10, start10.80.10.100, maximum100/end .199. No local branch DHCP pool is configured.
+- HQ-PC IPv4 .100 and IPv6 ::100 static. BRANCH-PC IPv4 DHCP, IPv6 2001:db8:80:10::100/64 static with gateway ::1. DNS names are optional; use HTTP by IP for baseline.
+
+ACCESS CREDENTIALS (ISOLATED LAB ONLY)
+SSH username: netadmin | Password: CiscoLab123!
+Enable secret: LabEnable123!
+Router/switch console remains available locally. Management access follows
+the ACLs included in each configuration. RSA keys may need regeneration if
+your Packet Tracer version does not restore the key-generation command:
+configure terminal / crypto key generate rsa modulus 1024 / end.
+
+LAB LIMITS
+ACLs here are stateless IOS ACLs. TCP established checks ACK/RST flags and is
+not a stateful firewall. DNS/NTP/syslog are simulated services. Documentation
+does not claim real Internet access, real packet capture or production security.
+The configurations use example address ranges and shared training passwords.
+Packet Tracer is a simulator: verify platform-specific DAI, SPAN, ACL logging,
+IPv6/SDM and HSRP behavior using the commands in VERIFICATION.txt.
+
+DNS RECORDS INCLUDED
+DHCP-SRV: hq.wan.lab -> 10.70.10.10
+DHCP-SRV: branch.wan.lab -> 10.80.10.100
+
+PDU-LAB is the simulator-created rack power utility; it has no IP or data link.
+
+Packet Tracer also creates a mandatory local serverPool. It is configured
+as a safe HQ scope 10.70.10.150-.199, gateway 10.70.10.1, DNS10.70.10.10.
+Branch relay selects the separate BRANCH-USERS scope by its gateway address.

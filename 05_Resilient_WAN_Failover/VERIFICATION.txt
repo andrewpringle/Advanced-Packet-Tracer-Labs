@@ -1,0 +1,11 @@
+ACCEPTANCE TESTS - EXPECTED OUTCOMES, NOT RECORDED RESULTS
+
+1. Routers show ip ospf neighbor and show ipv6 ospf neighbor: one FULL neighbor over primary WAN only. On HQ show ip route 10.80.10.0 and show ipv6 route 2001:db8:80:10::/64: OSPF AD110. Reverse route on Branch points toward HQ primary.
+
+2. BRANCH-PC renew DHCP: address10.80.10.100-.199, /24, gateway10.80.10.1, DNS10.70.10.10. Confirm Server-PT lease and inspect helper on Branch Gi0/2.10.
+
+3. HQ-PC ping the acquired branch IPv4 and 2001:db8:80:10::100. BRANCH-PC ping10.70.10.100 and2001:db8:70:10::100; browse http://10.70.10.10. Expect bidirectional connectivity.
+
+4. HQ-R1 interface Gi0/1 shutdown (or Branch Gi0/0). Wait for route removal; remote IPv4 and IPv6 LAN routes should change to static AD200 over backup. Repeat pings, HTTP and DHCP renewal while primary stays down.
+
+5. Restore primary no shutdown. Wait for OSPF FULL and AD110 routes to return. Floating static routes remain in configuration but are not selected. Record actual loss/convergence rather than claiming zero interruption.

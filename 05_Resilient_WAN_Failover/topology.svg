@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="950" viewBox="0 0 1450 950">
+<rect width="1450" height="950" fill="#f5f7fb"/>
+<style>text{font-family:Arial,sans-serif;fill:#172b42}.title{font-size:24px;font-weight:bold}.small{font-size:12px}.name{font-size:15px;font-weight:bold}</style>
+<text x="35" y="38" class="title">05 | Resilient WAN Failover</text>
+<rect x="95" y="200" width="575" height="615" rx="12" fill="rgb(223, 238, 252)" stroke="#b1c1d0"/>
+<text x="107" y="224" class="name">HEADQUARTERS</text>
+<text x="107" y="244" class="small">VLAN 10: 10.70.10.0/24 | 2001:db8:70:10::/64</text>
+<rect x="810" y="200" width="480" height="615" rx="12" fill="rgb(227, 243, 231)" stroke="#b1c1d0"/>
+<text x="822" y="224" class="name">BRANCH</text>
+<text x="822" y="244" class="small">VLAN 10: 10.80.10.0/24 | 2001:db8:80:10::/64</text>
+<line x1="420" y1="290" x2="420" y2="520" stroke="#6f8398" stroke-width="2"/>
+<line x1="420" y1="290" x2="1000" y2="290" stroke="#6f8398" stroke-width="2"/>
+<line x1="420" y1="290" x2="1000" y2="290" stroke="#6f8398" stroke-width="2"/>
+<line x1="1000" y1="290" x2="1000" y2="520" stroke="#6f8398" stroke-width="2"/>
+<line x1="420" y1="520" x2="240" y2="720" stroke="#6f8398" stroke-width="2"/>
+<line x1="420" y1="520" x2="540" y2="720" stroke="#6f8398" stroke-width="2"/>
+<line x1="1000" y1="520" x2="1000" y2="720" stroke="#6f8398" stroke-width="2"/>
+<rect x="372" y="270" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="420" y="295" text-anchor="middle" class="small">HQ-R1</text>
+<text x="420" y="328" text-anchor="middle" class="small">2911</text>
+<text x="420" y="347" text-anchor="middle" class="small"></text>
+<rect x="952" y="270" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="1000" y="295" text-anchor="middle" class="small">BRANCH-R1</text>
+<text x="1000" y="328" text-anchor="middle" class="small">2911</text>
+<text x="1000" y="347" text-anchor="middle" class="small"></text>
+<rect x="372" y="500" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="420" y="525" text-anchor="middle" class="small">HQ-SW1</text>
+<text x="420" y="558" text-anchor="middle" class="small">2960-24TT</text>
+<text x="420" y="577" text-anchor="middle" class="small"></text>
+<rect x="952" y="500" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="1000" y="525" text-anchor="middle" class="small">BRANCH-SW1</text>
+<text x="1000" y="558" text-anchor="middle" class="small">2960-24TT</text>
+<text x="1000" y="577" text-anchor="middle" class="small"></text>
+<rect x="192" y="700" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="240" y="725" text-anchor="middle" class="small">HQ-PC</text>
+<text x="240" y="758" text-anchor="middle" class="small">PC-PT</text>
+<text x="240" y="777" text-anchor="middle" class="small">10.70.10.100/24</text>
+<rect x="492" y="700" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="540" y="725" text-anchor="middle" class="small">DHCP-SRV</text>
+<text x="540" y="758" text-anchor="middle" class="small">Server-PT</text>
+<text x="540" y="777" text-anchor="middle" class="small">10.70.10.10/24</text>
+<rect x="952" y="700" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="1000" y="725" text-anchor="middle" class="small">BRANCH-PC</text>
+<text x="1000" y="758" text-anchor="middle" class="small">PC-PT</text>
+<text x="1000" y="777" text-anchor="middle" class="small">DHCP</text>
+<text x="35" y="920" class="small">Schematic | Exact interface pairs: TOPOLOGY_AND_CABLING.txt | Acceptance tests: VERIFICATION.txt</text></svg>

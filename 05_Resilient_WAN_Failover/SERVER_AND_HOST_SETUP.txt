@@ -1,0 +1,24 @@
+HOST/SERVER SETTINGS
+
+HQ-R1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-R1        2911         IPv4: see device configuration; gateway: see configuration / DHCP
+HQ-SW1           2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+BRANCH-SW1       2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+HQ-PC            PC-PT        IPv4: 10.70.10.100/24; gateway: 10.70.10.1; IPv6: 2001:db8:70:10::100/64 gateway 2001:db8:70:10::1
+DHCP-SRV         Server-PT    IPv4: 10.70.10.10/24; gateway: 10.70.10.1; IPv6: 2001:db8:70:10::10/64 gateway 2001:db8:70:10::1
+BRANCH-PC        PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: 2001:db8:80:10::100/64 gateway 2001:db8:80:10::1
+
+DHCP-SRV: 10.70.10.10/24 and 2001:db8:70:10::10/64; gateways 10.70.10.1 and 2001:db8:70:10::1. DHCP, HTTP and DNS enabled.
+
+DHCP pool BRANCH-USERS: network 10.80.10.0, mask255.255.255.0, default gateway10.80.10.1, DNS10.70.10.10, start10.80.10.100, maximum100/end .199. No local branch DHCP pool is configured.
+
+HQ-PC IPv4 .100 and IPv6 ::100 static. BRANCH-PC IPv4 DHCP, IPv6 2001:db8:80:10::100/64 static with gateway ::1. DNS names are optional; use HTTP by IP for baseline.
+
+
+DNS A RECORDS ALREADY INCLUDED
+DHCP-SRV: hq.wan.lab -> 10.70.10.10
+DHCP-SRV: branch.wan.lab -> 10.80.10.100
+
+Packet Tracer also creates a mandatory local serverPool. It is configured
+as a safe HQ scope 10.70.10.150-.199, gateway 10.70.10.1, DNS10.70.10.10.
+Branch relay selects the separate BRANCH-USERS scope by its gateway address.

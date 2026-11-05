@@ -1,0 +1,15 @@
+DESIGN REVIEW CORRECTIONS
+
+Corrected the supplied addressing.txt branch LAN typo: LAN subinterface is Gi0/2.10; Gi0/0 is the primary WAN and cannot also be the LAN trunk.
+
+Added explicit IPv6 endpoint addresses and gateways so dual-stack tests have actual source/destination hosts.
+
+Configured central DHCP Server-PT scope BRANCH-USERS: 10.80.10.100-.199/24, gateway 10.80.10.1, DNS 10.70.10.10; branch helper remains on Gi0/2.10.
+
+OSPFv3 LAN interfaces are passive; only the primary WAN forms neighbors. Backup is excluded from both OSPF processes and uses AD200 static routes in both directions.
+
+Router trunks explicitly use unused native VLAN 999; unused switch ports are parked/shut.
+
+Packet Tracer also creates a mandatory local serverPool. It is configured
+as a safe HQ scope 10.70.10.150-.199, gateway 10.70.10.1, DNS10.70.10.10.
+Branch relay selects the separate BRANCH-USERS scope by its gateway address.
