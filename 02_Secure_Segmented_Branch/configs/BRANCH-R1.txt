@@ -1,0 +1,164 @@
+! BRANCH-R1: native Packet Tracer accepted running configuration.
+! Enter configure terminal before pasting. Save with copy running-config startup-config.
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname BRANCH-R1
+!
+!
+!
+enable secret 5 $1$mERr$C7wac.PH39WKIwqqjtQE8/
+!
+!
+ip dhcp excluded-address 10.20.10.1 10.20.10.20
+ip dhcp excluded-address 10.20.20.1 10.20.20.20
+ip dhcp excluded-address 10.20.30.1 10.20.30.20
+ip dhcp excluded-address 10.20.40.1 10.20.40.20
+!
+ip dhcp pool USERS
+ network 10.20.10.0 255.255.255.0
+ default-router 10.20.10.1
+ dns-server 10.20.99.10
+ip dhcp pool FINANCE
+ network 10.20.20.0 255.255.255.0
+ default-router 10.20.20.1
+ dns-server 10.20.99.10
+ip dhcp pool IT
+ network 10.20.30.0 255.255.255.0
+ default-router 10.20.30.1
+ dns-server 10.20.99.10
+ip dhcp pool GUEST
+ network 10.20.40.0 255.255.255.0
+ default-router 10.20.40.1
+ dns-server 10.20.99.10
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username netadmin privilege 15 secret 5 $1$mERr$1j5AfM/N1KwdPiw15eETu/
+!
+!
+license udi pid CISCO2911/K9 sn LAB02000000
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name branch.lab
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description TO-BRANCH-SW1-GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ description USERS
+ encapsulation dot1Q 10
+ ip address 10.20.10.1 255.255.255.0
+!
+interface GigabitEthernet0/0.20
+ description FINANCE
+ encapsulation dot1Q 20
+ ip address 10.20.20.1 255.255.255.0
+ ip access-group FINANCE-IN in
+!
+interface GigabitEthernet0/0.30
+ description IT
+ encapsulation dot1Q 30
+ ip address 10.20.30.1 255.255.255.0
+!
+interface GigabitEthernet0/0.40
+ description GUEST
+ encapsulation dot1Q 40
+ ip address 10.20.40.1 255.255.255.0
+ ip access-group GUEST-IN in
+!
+interface GigabitEthernet0/0.99
+ description MANAGEMENT
+ encapsulation dot1Q 99
+ ip address 10.20.99.1 255.255.255.0
+!
+interface GigabitEthernet0/0.999
+ description UNUSED-NATIVE-VLAN
+ encapsulation dot1Q 999 native
+ no ip address
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended FINANCE-IN
+ permit udp any eq bootpc any eq bootps
+ remark Permit TCP and ICMP replies; block new Finance-to-Users flows
+ permit tcp 10.20.20.0 0.0.0.255 10.20.10.0 0.0.0.255 established
+ permit icmp 10.20.20.0 0.0.0.255 10.20.10.0 0.0.0.255 echo-reply
+ deny ip 10.20.20.0 0.0.0.255 10.20.10.0 0.0.0.255
+ permit ip 10.20.20.0 0.0.0.255 any
+ip access-list extended GUEST-IN
+ permit udp any eq bootpc any eq bootps
+ remark Approved DNS exception before private-space denial
+ permit udp 10.20.40.0 0.0.0.255 host 10.20.99.10 eq domain
+ permit tcp 10.20.40.0 0.0.0.255 host 10.20.99.10 eq domain
+ deny ip 10.20.40.0 0.0.0.255 10.0.0.0 0.255.255.255
+ deny ip 10.20.40.0 0.0.0.255 172.16.0.0 0.15.255.255
+ deny ip 10.20.40.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 10.20.40.0 0.0.0.255 any
+ip access-list standard IT-MANAGEMENT
+ permit 10.20.30.0 0.0.0.255
+ deny any
+!
+banner motd #AUTHORIZED LAB ACCESS ONLY#
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ access-class IT-MANAGEMENT in
+ login local
+ transport input ssh
+!
+!
+!
+end
