@@ -1,0 +1,26 @@
+HOST/SERVER SETTINGS
+
+ISP1             2911         IPv4: see device configuration; gateway: see configuration / DHCP
+EDGE1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+LAN-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+DMZ-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+INTERNET-PC      PC-PT        IPv4: 198.51.100.100/24; gateway: 198.51.100.1
+PUBLIC-SRV       Server-PT    IPv4: 192.0.2.10/24; gateway: 192.0.2.1
+USER-PC          PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+INFRA-SRV        Server-PT    IPv4: 10.30.10.20/24; gateway: 10.30.10.1
+WEB-SRV          Server-PT    IPv4: 172.16.50.10/24; gateway: 172.16.50.1
+
+INFRA-SRV: 10.30.10.20/24, gateway 10.30.10.1; DNS, NTP and Syslog enabled. HTTP disabled.
+
+WEB-SRV: 172.16.50.10/24, gateway 172.16.50.1; HTTP and HTTPS enabled. Use IP URLs for baseline tests; the DMZ ACL intentionally blocks DNS requests toward internal INFRA-SRV, so DNS-based DMZ browsing is not an acceptance test.
+
+PUBLIC-SRV: 192.0.2.10/24, gateway 192.0.2.1; HTTP and DNS enabled. DNS A record included: public.lab -> 192.0.2.10.
+
+USER-PC: DHCP. INTERNET-PC: 198.51.100.100/24, gateway 198.51.100.1.
+
+
+DNS A RECORDS ALREADY INCLUDED
+INFRA-SRV: web.dmz.lab -> 172.16.50.10
+INFRA-SRV: public.lab -> 192.0.2.10
+PUBLIC-SRV: public.lab -> 192.0.2.10
+PUBLIC-SRV: web.perimeter.lab -> 203.0.113.10

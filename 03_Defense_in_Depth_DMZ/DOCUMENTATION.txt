@@ -1,0 +1,99 @@
+03 - Defense in Depth DMZ
+============================================================================
+
+DELIVERABLE AND STATUS
+Native Packet Tracer .pkt file generated for installed Packet Tracer 9.0.1.
+Devices, links, VLAN database, running/startup configurations, host settings,
+server settings, notes and segment backgrounds are included.
+Native open/save and principal saved-configuration checks completed in
+Packet Tracer 9.0.1. End-to-end traffic and failover tests remain pending.
+See VALIDATION.txt for the exact completed checks and practical limits.
+
+OPEN AND USE
+1. Open 03_Defense_in_Depth_DMZ.pkt in Packet Tracer 9.0.1.
+2. Allow link negotiation, STP, routing, HSRP and DHCP to converge.
+3. On DHCP PCs, Desktop > IP Configuration > DHCP; renew if necessary.
+4. Follow VERIFICATION.txt. Record actual outputs in your own evidence copy.
+5. Save a baseline copy before FAULTS_AND_RECOVERY.txt exercises.
+6. Reference CLI files are in configs/. From privileged EXEC use configure
+   terminal, paste the configuration through end, then copy running-config
+   startup-config. Do not paste the Server-PT settings as IOS commands.
+
+DEVICE NAMING AND ADDRESSING
+ISP1             2911         IPv4: see device configuration; gateway: see configuration / DHCP
+EDGE1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+LAN-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+DMZ-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+INTERNET-PC      PC-PT        IPv4: 198.51.100.100/24; gateway: 198.51.100.1
+PUBLIC-SRV       Server-PT    IPv4: 192.0.2.10/24; gateway: 192.0.2.1
+USER-PC          PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+INFRA-SRV        Server-PT    IPv4: 10.30.10.20/24; gateway: 10.30.10.1
+WEB-SRV          Server-PT    IPv4: 172.16.50.10/24; gateway: 172.16.50.1
+
+SEGMENTATION AND LABELS
+PUBLIC SERVICE TEST: 192.0.2.0/24 | HTTP / DNS
+SIMULATED INTERNET: 198.51.100.0/24 | outside transit 203.0.113.0/30
+SECURITY EDGE: 203.0.113.10:80/443 -> 172.16.50.10 | PAT address .2
+INSIDE / VLAN 10: 10.30.10.0/24 | GW 10.30.10.1
+DMZ / VLAN 50: 172.16.50.0/24 | GW 172.16.50.1
+Native port labels are enabled. Each used IOS physical interface description
+names its remote device and port. Unused switch ports are shut and parked in
+VLAN 999; VLAN 999 has no routed gateway. Link lights and port labels can be
+toggled in Packet Tracer preferences. topology.svg is an additional schematic.
+
+CABLING
+EDGE1 GigabitEthernet0/0 <-> ISP1 GigabitEthernet0/0 | 203.0.113.0/30
+ISP1 GigabitEthernet0/1 <-> INTERNET-PC FastEthernet0 | 198.51.100.0/24 external test client
+ISP1 GigabitEthernet0/2 <-> PUBLIC-SRV FastEthernet0 | 192.0.2.0/24 external service
+EDGE1 GigabitEthernet0/1 <-> LAN-SW1 GigabitEthernet0/1 | Inside / access VLAN 10
+EDGE1 GigabitEthernet0/2 <-> DMZ-SW1 GigabitEthernet0/1 | DMZ / access VLAN 50
+LAN-SW1 FastEthernet0/5 <-> USER-PC FastEthernet0 | VLAN 10
+LAN-SW1 FastEthernet0/6 <-> INFRA-SRV FastEthernet0 | VLAN 10
+DMZ-SW1 FastEthernet0/5 <-> WEB-SRV FastEthernet0 | VLAN 50
+
+DESIGN CORRECTIONS FROM THE SUPPLIED PROJECT
+- Outside ACL now permits return TCP, ICMP replies/errors and approved public DNS replies to the PAT address. The original deny-all would have broken inside Internet tests.
+- Removed ICMP echo permit to the TCP-only published NAT address: static PAT for ports 80/443 does not publish ICMP.
+- DMZ ACL permits established HTTP/HTTPS and ICMP echo replies before denying new DMZ-to-inside flows; inside browsing of the DMZ server can now receive responses.
+- Added PUBLIC-SRV on ISP1 Gi0/2, 192.0.2.0/24, for an actual external HTTP/DNS service target without disturbing the original external PC link.
+- Raised logging trap to informational so severity-6 ACL events are eligible for supported event export. ISP /32 route to 203.0.113.10 via 203.0.113.2 is retained.
+
+HOST AND SERVER SERVICES
+- INFRA-SRV: 10.30.10.20/24, gateway 10.30.10.1; DNS, NTP and Syslog enabled. HTTP disabled.
+- WEB-SRV: 172.16.50.10/24, gateway 172.16.50.1; HTTP and HTTPS enabled. Use IP URLs for baseline tests; the DMZ ACL intentionally blocks DNS requests toward internal INFRA-SRV, so DNS-based DMZ browsing is not an acceptance test.
+- PUBLIC-SRV: 192.0.2.10/24, gateway 192.0.2.1; HTTP and DNS enabled. DNS A records: public.lab -> 192.0.2.10; web.perimeter.lab -> 203.0.113.10.
+- USER-PC: DHCP. INTERNET-PC: 198.51.100.100/24, gateway 198.51.100.1.
+
+ACCESS CREDENTIALS (ISOLATED LAB ONLY)
+SSH username: netadmin | Password: CiscoLab123!
+Enable secret: LabEnable123!
+Router/switch console remains available locally. Management access follows
+the ACLs included in each configuration. RSA keys may need regeneration if
+your Packet Tracer version does not restore the key-generation command:
+configure terminal / crypto key generate rsa modulus 1024 / end.
+
+LAB LIMITS
+ACLs here are stateless IOS ACLs. TCP established checks ACK/RST flags and is
+not a stateful firewall. DNS/NTP/syslog are simulated services. Documentation
+does not claim real Internet access, real packet capture or production security.
+The configurations use example address ranges and shared training passwords.
+Packet Tracer is a simulator: verify platform-specific DAI, SPAN, ACL logging,
+IPv6/SDM and HSRP behavior using the commands in VERIFICATION.txt.
+
+PACKET TRACER 9.0.1 COMPATIBILITY CORRECTION
+Native open/save testing rejected ACL statements with the log suffix.
+The suffix has been removed so the deny statements are actually installed.
+Use show access-lists hit counters and Simulation Mode for ACL-deny evidence.
+Syslog still covers supported interface/system/port-security events; ACL-deny
+syslog export is not claimed. Never treat an unsupported log keyword as safe: it
+can cause the entire deny ACE to be dropped when loading a configuration.
+
+Static PAT syntax omits the unsupported extendable suffix so Packet Tracer installs both TCP mappings.
+
+DNS RECORDS INCLUDED
+INFRA-SRV: web.dmz.lab -> 172.16.50.10
+INFRA-SRV: public.lab -> 192.0.2.10
+PUBLIC-SRV: public.lab -> 192.0.2.10
+PUBLIC-SRV: web.perimeter.lab -> 203.0.113.10
+
+PDU-LAB is the simulator-created rack power utility; it has no IP or data link.

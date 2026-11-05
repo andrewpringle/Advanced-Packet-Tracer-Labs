@@ -1,0 +1,17 @@
+Defense in Depth DMZ
+
+EDGE1 GigabitEthernet0/0 <-> ISP1 GigabitEthernet0/0 | 203.0.113.0/30
+ISP1 GigabitEthernet0/1 <-> INTERNET-PC FastEthernet0 | 198.51.100.0/24 external test client
+ISP1 GigabitEthernet0/2 <-> PUBLIC-SRV FastEthernet0 | 192.0.2.0/24 external service
+EDGE1 GigabitEthernet0/1 <-> LAN-SW1 GigabitEthernet0/1 | Inside / access VLAN 10
+EDGE1 GigabitEthernet0/2 <-> DMZ-SW1 GigabitEthernet0/1 | DMZ / access VLAN 50
+LAN-SW1 FastEthernet0/5 <-> USER-PC FastEthernet0 | VLAN 10
+LAN-SW1 FastEthernet0/6 <-> INFRA-SRV FastEthernet0 | VLAN 10
+DMZ-SW1 FastEthernet0/5 <-> WEB-SRV FastEthernet0 | VLAN 50
+
+SEGMENTS
+PUBLIC SERVICE TEST: 192.0.2.0/24 | HTTP / DNS
+SIMULATED INTERNET: 198.51.100.0/24 | outside transit 203.0.113.0/30
+SECURITY EDGE: 203.0.113.10:80/443 -> 172.16.50.10 | PAT address .2
+INSIDE / VLAN 10: 10.30.10.0/24 | GW 10.30.10.1
+DMZ / VLAN 50: 172.16.50.0/24 | GW 172.16.50.1

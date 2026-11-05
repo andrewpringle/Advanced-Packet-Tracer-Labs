@@ -1,0 +1,9 @@
+SAVE A BASELINE COPY FIRST. APPLY ONE FAULT AT A TIME.
+
+1. ISP1: no ip route 203.0.113.10 255.255.255.255 203.0.113.2. External HTTP fails despite static PAT. Recover by restoring that exact /32 route.
+
+2. EDGE1 Gi0/2: no ip nat inside. Published service fails. Recover: ip nat inside.
+
+3. EDGE1: remove ip access-group DMZ-IN in from Gi0/2. WEB-SRV can now ping inside; document policy failure. Recover: ip access-group DMZ-IN in.
+
+4. EDGE1: no logging host 10.30.10.20. Counters continue but central messages stop. Recover: logging host 10.30.10.20; trigger a fresh event.

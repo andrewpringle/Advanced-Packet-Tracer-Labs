@@ -1,0 +1,89 @@
+Defense in Depth DMZ
+
+END HOSTS
+ISP1             2911         IPv4: see device configuration; gateway: see configuration / DHCP
+EDGE1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+LAN-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+DMZ-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+INTERNET-PC      PC-PT        IPv4: 198.51.100.100/24; gateway: 198.51.100.1
+PUBLIC-SRV       Server-PT    IPv4: 192.0.2.10/24; gateway: 192.0.2.1
+USER-PC          PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+INFRA-SRV        Server-PT    IPv4: 10.30.10.20/24; gateway: 10.30.10.1
+WEB-SRV          Server-PT    IPv4: 172.16.50.10/24; gateway: 172.16.50.1
+
+ROUTED INTERFACES AND SVIs
+DMZ-SW1
+interface GigabitEthernet0/1
+interface FastEthernet0/5
+interface Vlan50
+ ip address 172.16.50.2 255.255.255.0
+interface FastEthernet0/1
+interface FastEthernet0/2
+interface FastEthernet0/3
+interface FastEthernet0/4
+interface FastEthernet0/6
+interface FastEthernet0/7
+interface FastEthernet0/8
+interface FastEthernet0/9
+interface FastEthernet0/10
+interface FastEthernet0/11
+interface FastEthernet0/12
+interface FastEthernet0/13
+interface FastEthernet0/14
+interface FastEthernet0/15
+interface FastEthernet0/16
+interface FastEthernet0/17
+interface FastEthernet0/18
+interface FastEthernet0/19
+interface FastEthernet0/20
+interface FastEthernet0/21
+interface FastEthernet0/22
+interface FastEthernet0/23
+interface FastEthernet0/24
+interface GigabitEthernet0/2
+
+EDGE1
+interface GigabitEthernet0/0
+ ip address 203.0.113.2 255.255.255.252
+interface GigabitEthernet0/1
+ ip address 10.30.10.1 255.255.255.0
+interface GigabitEthernet0/2
+ ip address 172.16.50.1 255.255.255.0
+
+ISP1
+interface GigabitEthernet0/0
+ ip address 203.0.113.1 255.255.255.252
+interface GigabitEthernet0/1
+ ip address 198.51.100.1 255.255.255.0
+interface GigabitEthernet0/2
+ ip address 192.0.2.1 255.255.255.0
+
+LAN-SW1
+interface GigabitEthernet0/1
+interface FastEthernet0/5
+interface FastEthernet0/6
+interface Vlan10
+ ip address 10.30.10.2 255.255.255.0
+interface FastEthernet0/1
+interface FastEthernet0/2
+interface FastEthernet0/3
+interface FastEthernet0/4
+interface FastEthernet0/7
+interface FastEthernet0/8
+interface FastEthernet0/9
+interface FastEthernet0/10
+interface FastEthernet0/11
+interface FastEthernet0/12
+interface FastEthernet0/13
+interface FastEthernet0/14
+interface FastEthernet0/15
+interface FastEthernet0/16
+interface FastEthernet0/17
+interface FastEthernet0/18
+interface FastEthernet0/19
+interface FastEthernet0/20
+interface FastEthernet0/21
+interface FastEthernet0/22
+interface FastEthernet0/23
+interface FastEthernet0/24
+interface GigabitEthernet0/2

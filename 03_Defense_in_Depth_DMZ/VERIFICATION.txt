@@ -1,0 +1,19 @@
+ACCEPTANCE TESTS - EXPECTED OUTCOMES, NOT RECORDED RESULTS
+
+1. USER-PC renews DHCP, receives 10.30.10.21 or higher, gateway .1, DNS .20. Browse http://192.0.2.10 and ping 198.51.100.100. Expect success; show ip nat translations shows PAT using 203.0.113.2.
+
+2. INTERNET-PC browse http://203.0.113.10 and https://203.0.113.10. Expect WEB-SRV response. show ip nat translations shows static TCP mappings. ISP1 show ip route 203.0.113.10 shows /32 via .2.
+
+3. INTERNET-PC ping 203.0.113.10: blocked / no ICMP static mapping, by design. SSH to .10: blocked. External direct access to 10.30.10.0/24 is not routed/allowed.
+
+4. USER-PC browse http://172.16.50.10: succeeds via DMZ established-reply exception. On WEB-SRV Desktop Command Prompt, ping 10.30.10.20: fails because DMZ cannot start inside traffic.
+
+5. EDGE1 show access-lists; show logging; show clock; show ntp associations if supported. Generate a new denied outside/DMZ packet and inspect ACL counters. Generate an interface event to test INFRA-SRV Services > SYSLOG. If simulated ACL log export is limited, document counters and Simulation Mode packet disposition separately.
+
+PACKET TRACER 9.0.1 COMPATIBILITY CORRECTION
+Native open/save testing rejected ACL statements with the log suffix.
+The suffix has been removed so the deny statements are actually installed.
+Use show access-lists hit counters and Simulation Mode for ACL-deny evidence.
+Syslog still covers supported interface/system/port-security events; ACL-deny
+syslog export is not claimed. Never treat an unsupported log keyword as safe: it
+can cause the entire deny ACE to be dropped when loading a configuration.
