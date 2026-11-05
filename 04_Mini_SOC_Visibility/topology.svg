@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="950" viewBox="0 0 1450 950">
+<rect width="1450" height="950" fill="#f5f7fb"/>
+<style>text{font-family:Arial,sans-serif;fill:#172b42}.title{font-size:24px;font-weight:bold}.small{font-size:12px}.name{font-size:15px;font-weight:bold}</style>
+<text x="35" y="38" class="title">04 | Mini SOC Visibility</text>
+<rect x="420" y="90" width="490" height="155" rx="12" fill="rgb(225, 242, 239)" stroke="#b1c1d0"/>
+<text x="432" y="114" class="name">SOC ROUTING / POLICY</text>
+<text x="432" y="134" class="small">USER-MONITOR ingress ACL | Syslog / NTP</text>
+<rect x="55" y="295" width="265" height="185" rx="12" fill="rgb(253, 230, 230)" stroke="#b1c1d0"/>
+<text x="67" y="319" class="name">SPAN SENSOR</text>
+<text x="67" y="339" class="small">Capture only; no management IP</text>
+<rect x="340" y="295" width="1020" height="185" rx="12" fill="rgb(252, 239, 214)" stroke="#b1c1d0"/>
+<text x="352" y="319" class="name">VLAN 99 SOC MGMT</text>
+<text x="352" y="339" class="small">10.60.99.0/24 | GW .1 | switches .11/.12 | server .10</text>
+<rect x="95" y="555" width="460" height="190" rx="12" fill="rgb(223, 238, 252)" stroke="#b1c1d0"/>
+<text x="107" y="579" class="name">VLAN 10 USERS / SWITCH 1</text>
+<text x="107" y="599" class="small">10.60.10.0/24 | USER1 + USER2 mirrored</text>
+<rect x="730" y="555" width="460" height="190" rx="12" fill="rgb(223, 238, 252)" stroke="#b1c1d0"/>
+<text x="742" y="579" class="name">VLAN 10 USERS / SWITCH 2</text>
+<text x="742" y="599" class="small">Same VLAN / subnet | USER3 + USER4</text>
+<line x1="430" y1="390" x2="210" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="430" y1="390" x2="420" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="960" y1="390" x2="850" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="960" y1="390" x2="1060" y2="650" stroke="#6f8398" stroke-width="2"/>
+<line x1="660" y1="170" x2="430" y2="390" stroke="#6f8398" stroke-width="2"/>
+<line x1="430" y1="390" x2="960" y2="390" stroke="#6f8398" stroke-width="2"/>
+<line x1="430" y1="390" x2="180" y2="390" stroke="#6f8398" stroke-width="2"/>
+<line x1="430" y1="390" x2="660" y2="390" stroke="#6f8398" stroke-width="2"/>
+<line x1="960" y1="390" x2="1220" y2="390" stroke="#6f8398" stroke-width="2"/>
+<rect x="612" y="150" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="660" y="175" text-anchor="middle" class="small">SOC-R1</text>
+<text x="660" y="208" text-anchor="middle" class="small">2911</text>
+<text x="660" y="227" text-anchor="middle" class="small"></text>
+<rect x="382" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="430" y="395" text-anchor="middle" class="small">SOC-SW1</text>
+<text x="430" y="428" text-anchor="middle" class="small">2960-24TT</text>
+<text x="430" y="447" text-anchor="middle" class="small"></text>
+<rect x="912" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="960" y="395" text-anchor="middle" class="small">SOC-SW2</text>
+<text x="960" y="428" text-anchor="middle" class="small">2960-24TT</text>
+<text x="960" y="447" text-anchor="middle" class="small"></text>
+<rect x="162" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="210" y="655" text-anchor="middle" class="small">USER1</text>
+<text x="210" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="210" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="372" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="420" y="655" text-anchor="middle" class="small">USER2</text>
+<text x="420" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="420" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="802" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="850" y="655" text-anchor="middle" class="small">USER3</text>
+<text x="850" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="850" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="1012" y="630" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="1060" y="655" text-anchor="middle" class="small">USER4</text>
+<text x="1060" y="688" text-anchor="middle" class="small">PC-PT</text>
+<text x="1060" y="707" text-anchor="middle" class="small">DHCP</text>
+<rect x="132" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="180" y="395" text-anchor="middle" class="small">ANALYST-PC</text>
+<text x="180" y="428" text-anchor="middle" class="small">PC-PT</text>
+<text x="180" y="447" text-anchor="middle" class="small"></text>
+<rect x="612" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="660" y="395" text-anchor="middle" class="small">SOC-ADMIN</text>
+<text x="660" y="428" text-anchor="middle" class="small">PC-PT</text>
+<text x="660" y="447" text-anchor="middle" class="small">10.60.99.50/24</text>
+<rect x="1172" y="370" width="96" height="40" rx="7" fill="white" stroke="#254c73" stroke-width="2"/>
+<text x="1220" y="395" text-anchor="middle" class="small">SYSLOG-SRV</text>
+<text x="1220" y="428" text-anchor="middle" class="small">Server-PT</text>
+<text x="1220" y="447" text-anchor="middle" class="small">10.60.99.10/24</text>
+<text x="35" y="920" class="small">Schematic | Exact interface pairs: TOPOLOGY_AND_CABLING.txt | Acceptance tests: VERIFICATION.txt</text></svg>

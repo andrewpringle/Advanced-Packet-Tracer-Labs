@@ -1,0 +1,121 @@
+! SOC-R1: native Packet Tracer accepted running configuration.
+! Enter configure terminal before pasting. Save with copy running-config startup-config.
+!
+version 15.1
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname SOC-R1
+!
+!
+!
+enable secret 5 $1$mERr$C7wac.PH39WKIwqqjtQE8/
+!
+!
+ip dhcp excluded-address 10.60.10.1 10.60.10.20
+!
+ip dhcp pool USERS
+ network 10.60.10.0 255.255.255.0
+ default-router 10.60.10.1
+ dns-server 10.60.99.10
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username netadmin privilege 15 secret 5 $1$mERr$1j5AfM/N1KwdPiw15eETu/
+!
+!
+license udi pid CISCO2911/K9 sn LAB04000000
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name soc.lab
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description TO-SOC-SW1-GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ description USER-VLAN
+ encapsulation dot1Q 10
+ ip address 10.60.10.1 255.255.255.0
+ ip access-group USER-MONITOR in
+!
+interface GigabitEthernet0/0.99
+ description SOC-MGMT
+ encapsulation dot1Q 99
+ ip address 10.60.99.1 255.255.255.0
+!
+interface GigabitEthernet0/0.999
+ description UNUSED-NATIVE-VLAN
+ encapsulation dot1Q 999 native
+ no ip address
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended USER-MONITOR
+ permit udp any eq bootpc any eq bootps
+ remark Example SOC policy: block direct admin access to SOC subnet and log it
+ deny tcp 10.60.10.0 0.0.0.255 10.60.99.0 0.0.0.255 eq 22
+ deny tcp 10.60.10.0 0.0.0.255 10.60.99.0 0.0.0.255 eq www
+ permit ip 10.60.10.0 0.0.0.255 any
+!
+banner motd #NETWORK MONITORING LAB - AUTHORIZED USERS ONLY#
+!
+!
+!
+!
+logging 10.60.99.10
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+ntp server 10.60.99.10
+!
+end

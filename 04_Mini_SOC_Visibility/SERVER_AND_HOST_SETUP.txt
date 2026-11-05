@@ -1,0 +1,22 @@
+HOST/SERVER SETTINGS
+
+SOC-R1           2911         IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-SW2          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+USER1            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER2            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER3            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER4            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+ANALYST-PC       PC-PT        IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-ADMIN        PC-PT        IPv4: 10.60.99.50/24; gateway: 10.60.99.1
+SYSLOG-SRV       Server-PT    IPv4: 10.60.99.10/24; gateway: 10.60.99.1
+
+SYSLOG-SRV: 10.60.99.10/24, gateway .1; NTP, Syslog and DNS enabled. HTTP disabled. Router and both switches target it for NTP and logging.
+
+SOC-ADMIN: static 10.60.99.50/24, gateway .1; normal management endpoint on SOC-SW1 Fa0/23. ANALYST-PC: no IP/gateway, only SPAN destination Fa0/24.
+
+USER1-USER4: DHCP in VLAN 10. Use actual learned client addresses and MACs when correlating an event.
+
+
+DNS A RECORDS ALREADY INCLUDED
+SYSLOG-SRV: soc.lab -> 10.60.99.10

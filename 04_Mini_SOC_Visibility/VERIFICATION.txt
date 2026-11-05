@@ -1,0 +1,21 @@
+ACCEPTANCE TESTS - EXPECTED OUTCOMES, NOT RECORDED RESULTS
+
+1. All four users renew DHCP and reach their own gateway 10.60.10.1. show interfaces trunk verifies 10,99 and native999. SOC-ADMIN reaches .99.1, .10, .11 and .12.
+
+2. SOC-SW1 show monitor (or show monitor session 1 if supported). Expect source Fa0/5 and Fa0/6 both; destination Fa0/24. ANALYST-PC should not be used for ping/SSH management.
+
+3. From USER1 issue ssh -l netadmin 10.60.99.11 or browse http://10.60.99.50. Expect policy deny and matching USER-MONITOR counters on SOC-R1. The destination need not run the blocked service to show an ingress denial.
+
+4. On router/switches: show clock; show logging; show ntp associations where supported. Generate switch and router link up/down events and inspect SYSLOG-SRV Services > SYSLOG. Inspect router ACL denies separately using ACL counters / Simulation Mode.
+
+5. Learn USER1 sticky MAC with traffic, then temporarily replace USER1 on Fa0/5 with a different PC and generate traffic. Expect restrict drops and violation counter increase; original endpoint still works after restoration.
+
+6. Use Simulation Mode to trace USER1 ARP/ICMP and denied SSH, and correlate with ACL counters and syslog. Mirrored-frame display at PC-PT is simulator-dependent; do not treat missing PC capture UI as proof SPAN is absent.
+
+PACKET TRACER 9.0.1 COMPATIBILITY CORRECTION
+Native open/save testing rejected ACL statements with the log suffix.
+The suffix has been removed so the deny statements are actually installed.
+Use show access-lists hit counters and Simulation Mode for ACL-deny evidence.
+Syslog still covers supported interface/system/port-security events; ACL-deny
+syslog export is not claimed. Never treat an unsupported log keyword as safe: it
+can cause the entire deny ACE to be dropped when loading a configuration.

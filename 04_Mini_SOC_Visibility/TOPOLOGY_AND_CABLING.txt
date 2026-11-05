@@ -1,0 +1,18 @@
+Mini SOC Visibility
+
+SOC-SW1 FastEthernet0/5 <-> USER1 FastEthernet0 | VLAN 10 / port security max 1
+SOC-SW1 FastEthernet0/6 <-> USER2 FastEthernet0 | VLAN 10 / port security max 1
+SOC-SW2 FastEthernet0/5 <-> USER3 FastEthernet0 | VLAN 10 / port security max 1
+SOC-SW2 FastEthernet0/6 <-> USER4 FastEthernet0 | VLAN 10 / port security max 1
+SOC-R1 GigabitEthernet0/0 <-> SOC-SW1 GigabitEthernet0/1 | 802.1Q 10,99; native 999
+SOC-SW1 GigabitEthernet0/2 <-> SOC-SW2 GigabitEthernet0/1 | 802.1Q 10,99; native 999
+SOC-SW1 FastEthernet0/24 <-> ANALYST-PC FastEthernet0 | SPAN destination / capture only
+SOC-SW1 FastEthernet0/23 <-> SOC-ADMIN FastEthernet0 | VLAN 99 / normal management
+SOC-SW2 FastEthernet0/24 <-> SYSLOG-SRV FastEthernet0 | VLAN 99 / NTP + Syslog
+
+SEGMENTS
+SOC ROUTING / POLICY: USER-MONITOR ingress ACL | Syslog / NTP
+SPAN SENSOR: Capture only; no management IP
+VLAN 99 SOC MGMT: 10.60.99.0/24 | GW .1 | switches .11/.12 | server .10
+VLAN 10 USERS / SWITCH 1: 10.60.10.0/24 | USER1 + USER2 mirrored
+VLAN 10 USERS / SWITCH 2: Same VLAN / subnet | USER3 + USER4

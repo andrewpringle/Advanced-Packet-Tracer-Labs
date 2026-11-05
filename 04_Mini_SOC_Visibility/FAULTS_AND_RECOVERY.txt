@@ -1,0 +1,9 @@
+SAVE A BASELINE COPY FIRST. APPLY ONE FAULT AT A TIME.
+
+1. SOC-SW1: no monitor session 1. Normal user traffic remains; monitor source/destination no longer listed. Recover: monitor session 1 source interface FastEthernet0/5 - 6 both; monitor session 1 destination interface FastEthernet0/24.
+
+2. SOC-R1: no logging host 10.60.99.10; logging host 10.60.99.99. Central router logs stop, but local counters still rise. Recover by removing wrong host and restoring .10.
+
+3. SOC-SW2: no ntp server 10.60.99.10. Compare show clock with the SOC server; drift is not instant and requires simulated time or a deliberately changed clock. Recover with ntp server 10.60.99.10.
+
+4. Trigger max-1 sticky restrict with a foreign endpoint, then restore the original PC. Restrict does not err-disable the port; no shutdown/no shutdown is unnecessary. Remove unwanted sticky MAC configuration or reopen the saved baseline if replacing the authorized host permanently.

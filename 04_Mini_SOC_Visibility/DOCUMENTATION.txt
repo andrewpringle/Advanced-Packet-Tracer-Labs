@@ -1,0 +1,95 @@
+04 - Mini SOC Visibility
+============================================================================
+
+DELIVERABLE AND STATUS
+Native Packet Tracer .pkt file generated for installed Packet Tracer 9.0.1.
+Devices, links, VLAN database, running/startup configurations, host settings,
+server settings, notes and segment backgrounds are included.
+Native open/save and principal saved-configuration checks completed in
+Packet Tracer 9.0.1. End-to-end traffic and failover tests remain pending.
+See VALIDATION.txt for the exact completed checks and practical limits.
+
+OPEN AND USE
+1. Open 04_Mini_SOC_Visibility.pkt in Packet Tracer 9.0.1.
+2. Allow link negotiation, STP, routing, HSRP and DHCP to converge.
+3. On DHCP PCs, Desktop > IP Configuration > DHCP; renew if necessary.
+4. Follow VERIFICATION.txt. Record actual outputs in your own evidence copy.
+5. Save a baseline copy before FAULTS_AND_RECOVERY.txt exercises.
+6. Reference CLI files are in configs/. From privileged EXEC use configure
+   terminal, paste the configuration through end, then copy running-config
+   startup-config. Do not paste the Server-PT settings as IOS commands.
+
+DEVICE NAMING AND ADDRESSING
+SOC-R1           2911         IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-SW2          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+USER1            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER2            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER3            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER4            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+ANALYST-PC       PC-PT        IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-ADMIN        PC-PT        IPv4: 10.60.99.50/24; gateway: 10.60.99.1
+SYSLOG-SRV       Server-PT    IPv4: 10.60.99.10/24; gateway: 10.60.99.1
+
+SEGMENTATION AND LABELS
+SOC ROUTING / POLICY: USER-MONITOR ingress ACL | Syslog / NTP
+SPAN SENSOR: Capture only; no management IP
+VLAN 99 SOC MGMT: 10.60.99.0/24 | GW .1 | switches .11/.12 | server .10
+VLAN 10 USERS / SWITCH 1: 10.60.10.0/24 | USER1 + USER2 mirrored
+VLAN 10 USERS / SWITCH 2: Same VLAN / subnet | USER3 + USER4
+Native port labels are enabled. Each used IOS physical interface description
+names its remote device and port. Unused switch ports are shut and parked in
+VLAN 999; VLAN 999 has no routed gateway. Link lights and port labels can be
+toggled in Packet Tracer preferences. topology.svg is an additional schematic.
+
+CABLING
+SOC-SW1 FastEthernet0/5 <-> USER1 FastEthernet0 | VLAN 10 / port security max 1
+SOC-SW1 FastEthernet0/6 <-> USER2 FastEthernet0 | VLAN 10 / port security max 1
+SOC-SW2 FastEthernet0/5 <-> USER3 FastEthernet0 | VLAN 10 / port security max 1
+SOC-SW2 FastEthernet0/6 <-> USER4 FastEthernet0 | VLAN 10 / port security max 1
+SOC-R1 GigabitEthernet0/0 <-> SOC-SW1 GigabitEthernet0/1 | 802.1Q 10,99; native 999
+SOC-SW1 GigabitEthernet0/2 <-> SOC-SW2 GigabitEthernet0/1 | 802.1Q 10,99; native 999
+SOC-SW1 FastEthernet0/24 <-> ANALYST-PC FastEthernet0 | SPAN destination / capture only
+SOC-SW1 FastEthernet0/23 <-> SOC-ADMIN FastEthernet0 | VLAN 99 / normal management
+SOC-SW2 FastEthernet0/24 <-> SYSLOG-SRV FastEthernet0 | VLAN 99 / NTP + Syslog
+
+DESIGN CORRECTIONS FROM THE SUPPLIED PROJECT
+- Separated capture-only ANALYST-PC from normal management SOC-ADMIN. A SPAN destination is not a normal routed access port; the original analyst IP/gateway was misleading.
+- Added SOC-ADMIN at 10.60.99.50 on SOC-SW1 Fa0/23. ANALYST-PC has no IP/default gateway and is dedicated to mirrored traffic.
+- Added DHCP permit before USER-MONITOR source restriction; enabled timestamps, NTP and informational logging on both switches.
+- User-port sticky maximum changed from 2 to 1 so a single foreign endpoint can deterministically trigger a restrict-mode violation after the original MAC is learned.
+- SPAN source remains USER1/USER2 ports only, both directions. USER3/USER4 are not claimed as fully mirrored. Packet Tracer Simulation Mode and counters provide evidence if endpoint SPAN display is limited.
+
+HOST AND SERVER SERVICES
+- SYSLOG-SRV: 10.60.99.10/24, gateway .1; NTP, Syslog and DNS enabled. HTTP disabled. Router and both switches target it for NTP and logging.
+- SOC-ADMIN: static 10.60.99.50/24, gateway .1; normal management endpoint on SOC-SW1 Fa0/23. ANALYST-PC: no IP/gateway, only SPAN destination Fa0/24.
+- USER1-USER4: DHCP in VLAN 10. Use actual learned client addresses and MACs when correlating an event.
+
+ACCESS CREDENTIALS (ISOLATED LAB ONLY)
+SSH username: netadmin | Password: CiscoLab123!
+Enable secret: LabEnable123!
+Router/switch console remains available locally. Management access follows
+the ACLs included in each configuration. RSA keys may need regeneration if
+your Packet Tracer version does not restore the key-generation command:
+configure terminal / crypto key generate rsa modulus 1024 / end.
+
+LAB LIMITS
+ACLs here are stateless IOS ACLs. TCP established checks ACK/RST flags and is
+not a stateful firewall. DNS/NTP/syslog are simulated services. Documentation
+does not claim real Internet access, real packet capture or production security.
+The configurations use example address ranges and shared training passwords.
+Packet Tracer is a simulator: verify platform-specific DAI, SPAN, ACL logging,
+IPv6/SDM and HSRP behavior using the commands in VERIFICATION.txt.
+
+PACKET TRACER 9.0.1 COMPATIBILITY CORRECTION
+Native open/save testing rejected ACL statements with the log suffix.
+The suffix has been removed so the deny statements are actually installed.
+Use show access-lists hit counters and Simulation Mode for ACL-deny evidence.
+Syslog still covers supported interface/system/port-security events; ACL-deny
+syslog export is not claimed. Never treat an unsupported log keyword as safe: it
+can cause the entire deny ACE to be dropped when loading a configuration.
+
+DNS RECORDS INCLUDED
+SYSLOG-SRV: soc.lab -> 10.60.99.10
+
+PDU-LAB is the simulator-created rack power utility; it has no IP or data link.

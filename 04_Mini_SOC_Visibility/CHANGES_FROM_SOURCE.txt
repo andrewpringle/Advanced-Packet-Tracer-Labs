@@ -1,0 +1,19 @@
+DESIGN REVIEW CORRECTIONS
+
+Separated capture-only ANALYST-PC from normal management SOC-ADMIN. A SPAN destination is not a normal routed access port; the original analyst IP/gateway was misleading.
+
+Added SOC-ADMIN at 10.60.99.50 on SOC-SW1 Fa0/23. ANALYST-PC has no IP/default gateway and is dedicated to mirrored traffic.
+
+Added DHCP permit before USER-MONITOR source restriction; enabled timestamps, NTP and informational logging on both switches.
+
+User-port sticky maximum changed from 2 to 1 so a single foreign endpoint can deterministically trigger a restrict-mode violation after the original MAC is learned.
+
+SPAN source remains USER1/USER2 ports only, both directions. USER3/USER4 are not claimed as fully mirrored. Packet Tracer Simulation Mode and counters provide evidence if endpoint SPAN display is limited.
+
+PACKET TRACER 9.0.1 COMPATIBILITY CORRECTION
+Native open/save testing rejected ACL statements with the log suffix.
+The suffix has been removed so the deny statements are actually installed.
+Use show access-lists hit counters and Simulation Mode for ACL-deny evidence.
+Syslog still covers supported interface/system/port-security events; ACL-deny
+syslog export is not claimed. Never treat an unsupported log keyword as safe: it
+can cause the entire deny ACE to be dropped when loading a configuration.

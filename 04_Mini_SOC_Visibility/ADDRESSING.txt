@@ -1,0 +1,82 @@
+Mini SOC Visibility
+
+END HOSTS
+SOC-R1           2911         IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-SW1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-SW2          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+USER1            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER2            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER3            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+USER4            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP
+ANALYST-PC       PC-PT        IPv4: see device configuration; gateway: see configuration / DHCP
+SOC-ADMIN        PC-PT        IPv4: 10.60.99.50/24; gateway: 10.60.99.1
+SYSLOG-SRV       Server-PT    IPv4: 10.60.99.10/24; gateway: 10.60.99.1
+
+ROUTED INTERFACES AND SVIs
+SOC-R1
+interface GigabitEthernet0/0
+interface GigabitEthernet0/0.10
+ ip address 10.60.10.1 255.255.255.0
+interface GigabitEthernet0/0.99
+ ip address 10.60.99.1 255.255.255.0
+interface GigabitEthernet0/0.999
+
+SOC-SW1
+interface GigabitEthernet0/1
+interface GigabitEthernet0/2
+interface FastEthernet0/5
+interface FastEthernet0/6
+interface FastEthernet0/24
+interface Vlan99
+ ip address 10.60.99.11 255.255.255.0
+interface FastEthernet0/23
+interface FastEthernet0/1
+interface FastEthernet0/2
+interface FastEthernet0/3
+interface FastEthernet0/4
+interface FastEthernet0/7
+interface FastEthernet0/8
+interface FastEthernet0/9
+interface FastEthernet0/10
+interface FastEthernet0/11
+interface FastEthernet0/12
+interface FastEthernet0/13
+interface FastEthernet0/14
+interface FastEthernet0/15
+interface FastEthernet0/16
+interface FastEthernet0/17
+interface FastEthernet0/18
+interface FastEthernet0/19
+interface FastEthernet0/20
+interface FastEthernet0/21
+interface FastEthernet0/22
+
+SOC-SW2
+interface GigabitEthernet0/1
+interface FastEthernet0/5
+interface FastEthernet0/6
+interface FastEthernet0/24
+interface Vlan99
+ ip address 10.60.99.12 255.255.255.0
+interface FastEthernet0/1
+interface FastEthernet0/2
+interface FastEthernet0/3
+interface FastEthernet0/4
+interface FastEthernet0/7
+interface FastEthernet0/8
+interface FastEthernet0/9
+interface FastEthernet0/10
+interface FastEthernet0/11
+interface FastEthernet0/12
+interface FastEthernet0/13
+interface FastEthernet0/14
+interface FastEthernet0/15
+interface FastEthernet0/16
+interface FastEthernet0/17
+interface FastEthernet0/18
+interface FastEthernet0/19
+interface FastEthernet0/20
+interface FastEthernet0/21
+interface FastEthernet0/22
+interface FastEthernet0/23
+interface GigabitEthernet0/2
