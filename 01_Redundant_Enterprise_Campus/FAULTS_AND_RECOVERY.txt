@@ -1,0 +1,9 @@
+SAVE A BASELINE COPY FIRST. APPLY ONE FAULT AT A TIME.
+
+1. EDGE1: configure terminal / interface GigabitEthernet0/1 / shutdown / end. Expect OSPF path through CORE2. Recover with no shutdown on that interface.
+
+2. ACCESS1: interface FastEthernet0/21 / shutdown. Po1 should retain member Fa0/22. Recover with no shutdown. Test traffic that actually traverses Po1; STP may leave the bundle blocked for a particular VLAN.
+
+3. CORE2: interface Vlan20 / standby 20 priority 90. CORE1 preempts group 20. Recover with standby 20 priority 120.
+
+4. CORE1: interface FastEthernet0/2 / switchport trunk allowed vlan remove 20. Inspect trunk lists; redundant paths may mask the failure. Recover with switchport trunk allowed vlan 10,20,30,99,999.

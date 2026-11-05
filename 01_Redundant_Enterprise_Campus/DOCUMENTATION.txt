@@ -1,0 +1,97 @@
+01 - Redundant Enterprise Campus
+============================================================================
+
+DELIVERABLE AND STATUS
+Native Packet Tracer .pkt file generated for installed Packet Tracer 9.0.1.
+Devices, links, VLAN database, running/startup configurations, host settings,
+server settings, notes and segment backgrounds are included.
+Native open/save and principal saved-configuration checks completed in
+Packet Tracer 9.0.1. End-to-end traffic and failover tests remain pending.
+See VALIDATION.txt for the exact completed checks and practical limits.
+
+OPEN AND USE
+1. Open 01_Redundant_Enterprise_Campus.pkt in Packet Tracer 9.0.1.
+2. Allow link negotiation, STP, routing, HSRP and DHCP to converge.
+3. On DHCP PCs, Desktop > IP Configuration > DHCP; renew if necessary.
+4. Follow VERIFICATION.txt. Record actual outputs in your own evidence copy.
+5. Save a baseline copy before FAULTS_AND_RECOVERY.txt exercises.
+6. Reference CLI files are in configs/. From privileged EXEC use configure
+   terminal, paste the configuration through end, then copy running-config
+   startup-config. Do not paste the Server-PT settings as IOS commands.
+
+DEVICE NAMING AND ADDRESSING
+ISP1             2911         IPv4: see device configuration; gateway: see configuration / DHCP
+EDGE1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+CORE1            3560-24PS    IPv4: see device configuration; gateway: see configuration / DHCP
+CORE2            3560-24PS    IPv4: see device configuration; gateway: see configuration / DHCP
+ACCESS1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+ACCESS2          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+USER1            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: SLAAC / router advertisements
+VOICE-PC         PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: SLAAC / router advertisements
+USER2            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: SLAAC / router advertisements
+SERVER1          Server-PT    IPv4: 10.10.20.10/24; gateway: 10.10.20.1; IPv6: SLAAC / router advertisements
+ADMIN-PC         PC-PT        IPv4: 10.10.99.50/24; gateway: 10.10.99.1; IPv6: SLAAC / router advertisements
+
+SEGMENTATION AND LABELS
+SIMULATED ISP / EDGE: 198.51.100.0/30 | service target 203.0.113.1
+REDUNDANT CORE: OSPFv2/v3 area 0 | HSRP + Rapid PVST
+ACCESS FABRIC: Trunks 10,20,30,99 | Po1 LACP | native / unused 999
+VLAN 10 USERS: 10.10.10.0/24
+VLAN 30 VOICE-LAB: 10.10.30.0/24
+VLAN 20 SERVERS: 10.10.20.0/24
+VLAN 99 MGMT: 10.10.99.0/24
+Native port labels are enabled. Each used IOS physical interface description
+names its remote device and port. Unused switch ports are shut and parked in
+VLAN 999; VLAN 999 has no routed gateway. Link lights and port labels can be
+toggled in Packet Tracer preferences. topology.svg is an additional schematic.
+
+CABLING
+ACCESS1 FastEthernet0/5 <-> USER1 FastEthernet0 | Access VLAN 10
+ACCESS1 FastEthernet0/6 <-> VOICE-PC FastEthernet0 | Access VLAN 30
+ACCESS2 FastEthernet0/5 <-> USER2 FastEthernet0 | Access VLAN 20
+ACCESS2 FastEthernet0/6 <-> SERVER1 FastEthernet0 | VLAN 20 / DNS, HTTP, NTP, syslog
+ACCESS2 FastEthernet0/7 <-> ADMIN-PC FastEthernet0 | VLAN 99 management
+CORE1 GigabitEthernet0/1 <-> CORE2 GigabitEthernet0/1 | 10.255.0.8/30 / OSPF area 0
+CORE1 GigabitEthernet0/2 <-> EDGE1 GigabitEthernet0/1 | 10.255.0.0/30 / OSPF area 0
+CORE2 GigabitEthernet0/2 <-> EDGE1 GigabitEthernet0/2 | 10.255.0.4/30 / OSPF area 0
+EDGE1 GigabitEthernet0/0 <-> ISP1 GigabitEthernet0/0 | 198.51.100.0/30 / simulated ISP
+CORE1 FastEthernet0/1 <-> ACCESS1 FastEthernet0/1 | 802.1Q: 10,20,30,99; native 999
+CORE2 FastEthernet0/1 <-> ACCESS1 FastEthernet0/2 | 802.1Q: 10,20,30,99; native 999
+CORE1 FastEthernet0/2 <-> ACCESS2 FastEthernet0/1 | 802.1Q: 10,20,30,99; native 999
+CORE2 FastEthernet0/2 <-> ACCESS2 FastEthernet0/2 | 802.1Q: 10,20,30,99; native 999
+ACCESS1 FastEthernet0/21 <-> ACCESS2 FastEthernet0/21 | LACP Po1 / 802.1Q trunk
+ACCESS1 FastEthernet0/22 <-> ACCESS2 FastEthernet0/22 | LACP Po1 / 802.1Q trunk
+
+DESIGN CORRECTIONS FROM THE SUPPLIED PROJECT
+- Added ISP return routes for private campus IPv4 and the documented IPv6 prefixes; added missing ISP IPv6 link addressing.
+- Added non-overlapping DHCP scopes to both cores for VLANs 10,20,30. No synchronized lease database is claimed; surviving scopes support new leases after a core outage.
+- Added VOICE-PC in VLAN 30 and ADMIN-PC in VLAN 99 so every routed segment has a representative endpoint. USER2 remains in VLAN 20 as supplied.
+- Set explicit 802.1Q trunk encapsulation and dual-stack SDM preference on the 3560 cores; passive OSPFv3 LAN interfaces.
+- IPv4 gateways use HSRP; IPv6 hosts use RA/SLAAC and may require RA/neighbor discovery convergence after a core failure. No IPv6 HSRP or instant IPv6 failover is claimed.
+- Unused access ports are parked/shut. The simulated ISP routes lab space; this is not real Internet access.
+
+HOST AND SERVER SERVICES
+- SERVER1: static 10.10.20.10/24, gateway 10.10.20.1; DNS, HTTP, NTP and Syslog enabled. DNS record: server.campus.lab -> 10.10.20.10; IP addresses remain useful for baseline tests.
+- USER1, USER2 and VOICE-PC: IPv4 DHCP; IPv6 automatic/SLAAC. ADMIN-PC IPv4 10.10.99.50/24; IPv6 automatic. SERVER1 also uses IPv6 automatic.
+- 3560 dual-stack SDM: if show sdm prefer reports a pending template, save/reload each core, then verify show ipv6 interface brief before IPv6 tests.
+
+ACCESS CREDENTIALS (ISOLATED LAB ONLY)
+SSH username: netadmin | Password: CiscoLab123!
+Enable secret: LabEnable123!
+Router/switch console remains available locally. Management access follows
+the ACLs included in each configuration. RSA keys may need regeneration if
+your Packet Tracer version does not restore the key-generation command:
+configure terminal / crypto key generate rsa modulus 1024 / end.
+
+LAB LIMITS
+ACLs here are stateless IOS ACLs. TCP established checks ACK/RST flags and is
+not a stateful firewall. DNS/NTP/syslog are simulated services. Documentation
+does not claim real Internet access, real packet capture or production security.
+The configurations use example address ranges and shared training passwords.
+Packet Tracer is a simulator: verify platform-specific DAI, SPAN, ACL logging,
+IPv6/SDM and HSRP behavior using the commands in VERIFICATION.txt.
+
+DNS RECORDS INCLUDED
+SERVER1: server.campus.lab -> 10.10.20.10
+
+PDU-LAB is the simulator-created rack power utility; it has no IP or data link.

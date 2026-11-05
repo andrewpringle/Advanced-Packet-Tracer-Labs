@@ -1,0 +1,13 @@
+DESIGN REVIEW CORRECTIONS
+
+Added ISP return routes for private campus IPv4 and the documented IPv6 prefixes; added missing ISP IPv6 link addressing.
+
+Added non-overlapping DHCP scopes to both cores for VLANs 10,20,30. No synchronized lease database is claimed; surviving scopes support new leases after a core outage.
+
+Added VOICE-PC in VLAN 30 and ADMIN-PC in VLAN 99 so every routed segment has a representative endpoint. USER2 remains in VLAN 20 as supplied.
+
+Set explicit 802.1Q trunk encapsulation and dual-stack SDM preference on the 3560 cores; passive OSPFv3 LAN interfaces.
+
+IPv4 gateways use HSRP; IPv6 hosts use RA/SLAAC and may require RA/neighbor discovery convergence after a core failure. No IPv6 HSRP or instant IPv6 failover is claimed.
+
+Unused access ports are parked/shut. The simulated ISP routes lab space; this is not real Internet access.

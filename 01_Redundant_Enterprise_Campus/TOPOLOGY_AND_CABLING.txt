@@ -1,0 +1,26 @@
+Redundant Enterprise Campus
+
+ACCESS1 FastEthernet0/5 <-> USER1 FastEthernet0 | Access VLAN 10
+ACCESS1 FastEthernet0/6 <-> VOICE-PC FastEthernet0 | Access VLAN 30
+ACCESS2 FastEthernet0/5 <-> USER2 FastEthernet0 | Access VLAN 20
+ACCESS2 FastEthernet0/6 <-> SERVER1 FastEthernet0 | VLAN 20 / DNS, HTTP, NTP, syslog
+ACCESS2 FastEthernet0/7 <-> ADMIN-PC FastEthernet0 | VLAN 99 management
+CORE1 GigabitEthernet0/1 <-> CORE2 GigabitEthernet0/1 | 10.255.0.8/30 / OSPF area 0
+CORE1 GigabitEthernet0/2 <-> EDGE1 GigabitEthernet0/1 | 10.255.0.0/30 / OSPF area 0
+CORE2 GigabitEthernet0/2 <-> EDGE1 GigabitEthernet0/2 | 10.255.0.4/30 / OSPF area 0
+EDGE1 GigabitEthernet0/0 <-> ISP1 GigabitEthernet0/0 | 198.51.100.0/30 / simulated ISP
+CORE1 FastEthernet0/1 <-> ACCESS1 FastEthernet0/1 | 802.1Q: 10,20,30,99; native 999
+CORE2 FastEthernet0/1 <-> ACCESS1 FastEthernet0/2 | 802.1Q: 10,20,30,99; native 999
+CORE1 FastEthernet0/2 <-> ACCESS2 FastEthernet0/1 | 802.1Q: 10,20,30,99; native 999
+CORE2 FastEthernet0/2 <-> ACCESS2 FastEthernet0/2 | 802.1Q: 10,20,30,99; native 999
+ACCESS1 FastEthernet0/21 <-> ACCESS2 FastEthernet0/21 | LACP Po1 / 802.1Q trunk
+ACCESS1 FastEthernet0/22 <-> ACCESS2 FastEthernet0/22 | LACP Po1 / 802.1Q trunk
+
+SEGMENTS
+SIMULATED ISP / EDGE: 198.51.100.0/30 | service target 203.0.113.1
+REDUNDANT CORE: OSPFv2/v3 area 0 | HSRP + Rapid PVST
+ACCESS FABRIC: Trunks 10,20,30,99 | Po1 LACP | native / unused 999
+VLAN 10 USERS: 10.10.10.0/24
+VLAN 30 VOICE-LAB: 10.10.30.0/24
+VLAN 20 SERVERS: 10.10.20.0/24
+VLAN 99 MGMT: 10.10.99.0/24

@@ -1,0 +1,23 @@
+HOST/SERVER SETTINGS
+
+ISP1             2911         IPv4: see device configuration; gateway: see configuration / DHCP
+EDGE1            2911         IPv4: see device configuration; gateway: see configuration / DHCP
+CORE1            3560-24PS    IPv4: see device configuration; gateway: see configuration / DHCP
+CORE2            3560-24PS    IPv4: see device configuration; gateway: see configuration / DHCP
+ACCESS1          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+ACCESS2          2960-24TT    IPv4: see device configuration; gateway: see configuration / DHCP
+USER1            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: SLAAC / router advertisements
+VOICE-PC         PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: SLAAC / router advertisements
+USER2            PC-PT        IPv4: DHCP; gateway: see configuration / DHCP; IPv6: SLAAC / router advertisements
+SERVER1          Server-PT    IPv4: 10.10.20.10/24; gateway: 10.10.20.1; IPv6: SLAAC / router advertisements
+ADMIN-PC         PC-PT        IPv4: 10.10.99.50/24; gateway: 10.10.99.1; IPv6: SLAAC / router advertisements
+
+SERVER1: static 10.10.20.10/24, gateway 10.10.20.1; DNS, HTTP, NTP and Syslog enabled. DNS A record included: server.campus.lab -> 10.10.20.10.
+
+USER1, USER2 and VOICE-PC: IPv4 DHCP; IPv6 automatic/SLAAC. ADMIN-PC IPv4 10.10.99.50/24; IPv6 automatic. SERVER1 also uses IPv6 automatic.
+
+3560 dual-stack SDM: if show sdm prefer reports a pending template, save/reload each core, then verify show ipv6 interface brief before IPv6 tests.
+
+
+DNS A RECORDS ALREADY INCLUDED
+SERVER1: server.campus.lab -> 10.10.20.10

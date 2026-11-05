@@ -1,0 +1,13 @@
+ACCEPTANCE TESTS - EXPECTED OUTCOMES, NOT RECORDED RESULTS
+
+1. On cores: show vlan brief; show interfaces trunk; show spanning-tree root; show standby brief. Expect CORE1 active/root VLANs 10,30 and CORE2 active/root VLANs 20,99; VIPs end .1.
+
+2. On ACCESS1/2: show etherchannel summary. Expect Po1(SU), both member ports bundled (P). STP may legitimately block a redundant port or the logical bundle.
+
+3. On both cores and EDGE1: show ip ospf neighbor; show ipv6 ospf neighbor. Each node should have two FULL routed neighbors. show ip route and show ipv6 route should show campus/default reachability.
+
+4. Renew each DHCP client. Expect its VLAN prefix, VIP gateway, DNS 10.10.20.10; core1 range .21-.120 or core2 .121-.254. Inspect show ip dhcp binding on both cores.
+
+5. USER1 ping 10.10.20.10 and 203.0.113.1. Repeat the first ping after ARP warm-up. Browse http://10.10.20.10. On PCs inspect IPv6 auto addressing, then ping the server global IPv6 address and 2001:db8:ffff:100::1.
+
+6. Power off CORE1 in a disposable copy. Confirm IPv4 gateway ownership and routing move to CORE2, then renew VOICE-PC DHCP. IPv6: wait for an alternate router advertisement / neighbor reachability recovery and record actual convergence rather than assuming HSRP protects IPv6. Restore CORE1 and confirm preferred roles return.
