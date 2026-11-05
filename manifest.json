@@ -1,0 +1,52 @@
+[
+  {
+    "lab": 1,
+    "title": "Redundant Enterprise Campus",
+    "folder": "01_Redundant_Enterprise_Campus",
+    "network_devices_and_hosts": 11,
+    "rack_power_utilities": 1,
+    "links": 15,
+    "device_configuration_files": 6,
+    "pkt_sha256": "3d620f1ddec53b1428524956527af66ce0bdf0083f74483df5ad82dfb3cdaa83"
+  },
+  {
+    "lab": 2,
+    "title": "Secure Segmented Branch",
+    "folder": "02_Secure_Segmented_Branch",
+    "network_devices_and_hosts": 8,
+    "rack_power_utilities": 1,
+    "links": 7,
+    "device_configuration_files": 3,
+    "pkt_sha256": "9d6da7bec0eb4abef2b81da6627145dfc7792b11c67cacd0edcd8ebaac835f69"
+  },
+  {
+    "lab": 3,
+    "title": "Defense in Depth DMZ",
+    "folder": "03_Defense_in_Depth_DMZ",
+    "network_devices_and_hosts": 9,
+    "rack_power_utilities": 1,
+    "links": 8,
+    "device_configuration_files": 4,
+    "pkt_sha256": "cd703e4ce22ab1af577258a6d89fed7282a92d2c24add1bb27d27cbe9f2b4fd4"
+  },
+  {
+    "lab": 4,
+    "title": "Mini SOC Visibility",
+    "folder": "04_Mini_SOC_Visibility",
+    "network_devices_and_hosts": 10,
+    "rack_power_utilities": 1,
+    "links": 9,
+    "device_configuration_files": 3,
+    "pkt_sha256": "5b72c7fb540387ce71a905b61c7c9f1e862554e9d7b24e76c8091d80718157c3"
+  },
+  {
+    "lab": 5,
+    "title": "Resilient WAN Failover",
+    "folder": "05_Resilient_WAN_Failover",
+    "network_devices_and_hosts": 7,
+    "rack_power_utilities": 1,
+    "links": 7,
+    "device_configuration_files": 4,
+    "pkt_sha256": "3eda1ea47f50d173d297ded288bb8cfcf28acacfd90da73683f5395a38166783"
+  }
+]

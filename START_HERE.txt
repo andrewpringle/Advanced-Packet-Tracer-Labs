@@ -1,0 +1,24 @@
+PACKET TRACER ADVANCED LABS - FIVE INDEPENDENT PROJECTS
+
+Open the .pkt file inside each numbered folder with Cisco Packet Tracer 9.0.1.
+Each lab includes DOCUMENTATION.txt, ADDRESSING.txt, TOPOLOGY_AND_CABLING.txt,
+SERVER_AND_HOST_SETUP.txt, VERIFICATION.txt, FAULTS_AND_RECOVERY.txt,
+CHANGES_FROM_SOURCE.txt, VALIDATION.txt, a topology.svg schematic and configs/.
+
+01 Redundant Enterprise Campus: HSRP, STP, LACP, OSPFv2/v3, split-scope DHCP.
+02 Secure Segmented Branch: five VLANs, ACLs, DAI, DHCP snooping, IT-only SSH.
+03 Defense in Depth DMZ: inside/DMZ/outside, PAT, published HTTP/S, ACLs.
+04 Mini SOC Visibility: SPAN sensor, separate management, syslog, NTP, triage.
+05 Resilient WAN Failover: primary OSPF, AD200 backup, central DHCP relay.
+
+Credentials: netadmin / CiscoLab123! ; enable secret LabEnable123!
+Supplied project conflicts are explained in each CHANGES_FROM_SOURCE.txt.
+The source archive was preserved unchanged outside this output package.
+
+STATUS: All five lab networks were opened/saved in Packet Tracer 9.0.1,
+and their principal saved configurations were checked.
+End-to-end traffic and failure/recovery acceptance tests remain pending.
+Use VERIFICATION.txt to record actual results; expected outcomes are not evidence.
+
+DNS records and SSH state are included. For CLI-only rebuilding, follow each
+SSH_AND_CLI_IMPORT.txt. PDU-LAB is the simulator rack utility, not a network node.

@@ -1,0 +1,227 @@
+VALIDATION REPORT - 2026-11-05
+
+Native network open/save and principal configuration retention were checked in
+Cisco Packet Tracer 9.0.1. Final metadata, DNS records and SSH state were checked
+structurally. End-to-end traffic/failover tests and full canvas visual inspection
+are pending; see each VALIDATION.txt and VERIFICATION.txt.
+
+PASS | 01: unique device names
+PASS | 01: unique saved device identifiers
+PASS | 01: unique physical interface MAC addresses
+PASS | 01: cable endpoint references resolve (1)
+PASS | 01: available, exclusive physical port ACCESS1 FastEthernet0/5
+PASS | 01: available, exclusive physical port USER1 FastEthernet0
+PASS | 01: cable endpoint references resolve (2)
+PASS | 01: available, exclusive physical port ACCESS1 FastEthernet0/6
+PASS | 01: available, exclusive physical port VOICE-PC FastEthernet0
+PASS | 01: cable endpoint references resolve (3)
+PASS | 01: available, exclusive physical port ACCESS2 FastEthernet0/5
+PASS | 01: available, exclusive physical port USER2 FastEthernet0
+PASS | 01: cable endpoint references resolve (4)
+PASS | 01: available, exclusive physical port ACCESS2 FastEthernet0/6
+PASS | 01: available, exclusive physical port SERVER1 FastEthernet0
+PASS | 01: cable endpoint references resolve (5)
+PASS | 01: available, exclusive physical port ACCESS2 FastEthernet0/7
+PASS | 01: available, exclusive physical port ADMIN-PC FastEthernet0
+PASS | 01: cable endpoint references resolve (6)
+PASS | 01: available, exclusive physical port CORE1 GigabitEthernet0/1
+PASS | 01: available, exclusive physical port CORE2 GigabitEthernet0/1
+PASS | 01: cable endpoint references resolve (7)
+PASS | 01: available, exclusive physical port CORE1 GigabitEthernet0/2
+PASS | 01: available, exclusive physical port EDGE1 GigabitEthernet0/1
+PASS | 01: cable endpoint references resolve (8)
+PASS | 01: available, exclusive physical port CORE2 GigabitEthernet0/2
+PASS | 01: available, exclusive physical port EDGE1 GigabitEthernet0/2
+PASS | 01: cable endpoint references resolve (9)
+PASS | 01: available, exclusive physical port EDGE1 GigabitEthernet0/0
+PASS | 01: available, exclusive physical port ISP1 GigabitEthernet0/0
+PASS | 01: cable endpoint references resolve (10)
+PASS | 01: available, exclusive physical port CORE1 FastEthernet0/1
+PASS | 01: available, exclusive physical port ACCESS1 FastEthernet0/1
+PASS | 01: cable endpoint references resolve (11)
+PASS | 01: available, exclusive physical port CORE2 FastEthernet0/1
+PASS | 01: available, exclusive physical port ACCESS1 FastEthernet0/2
+PASS | 01: cable endpoint references resolve (12)
+PASS | 01: available, exclusive physical port CORE1 FastEthernet0/2
+PASS | 01: available, exclusive physical port ACCESS2 FastEthernet0/1
+PASS | 01: cable endpoint references resolve (13)
+PASS | 01: available, exclusive physical port CORE2 FastEthernet0/2
+PASS | 01: available, exclusive physical port ACCESS2 FastEthernet0/2
+PASS | 01: cable endpoint references resolve (14)
+PASS | 01: available, exclusive physical port ACCESS1 FastEthernet0/21
+PASS | 01: available, exclusive physical port ACCESS2 FastEthernet0/21
+PASS | 01: cable endpoint references resolve (15)
+PASS | 01: available, exclusive physical port ACCESS1 FastEthernet0/22
+PASS | 01: available, exclusive physical port ACCESS2 FastEthernet0/22
+PASS | 01: startup equals accepted running configuration on ISP1
+PASS | 01: startup equals accepted running configuration on EDGE1
+PASS | 01: saved SSH state provisioned on EDGE1
+PASS | 01: startup equals accepted running configuration on CORE1
+PASS | 01: saved SSH state provisioned on CORE1
+PASS | 01: startup equals accepted running configuration on CORE2
+PASS | 01: saved SSH state provisioned on CORE2
+PASS | 01: startup equals accepted running configuration on ACCESS1
+PASS | 01: saved SSH state provisioned on ACCESS1
+PASS | 01: startup equals accepted running configuration on ACCESS2
+PASS | 01: saved SSH state provisioned on ACCESS2
+PASS | 01: documentation and test procedure present
+PASS | 02: unique device names
+PASS | 02: unique saved device identifiers
+PASS | 02: unique physical interface MAC addresses
+PASS | 02: cable endpoint references resolve (1)
+PASS | 02: available, exclusive physical port BRANCH-SW1 FastEthernet0/5
+PASS | 02: available, exclusive physical port USER-PC1 FastEthernet0
+PASS | 02: cable endpoint references resolve (2)
+PASS | 02: available, exclusive physical port BRANCH-SW1 FastEthernet0/6
+PASS | 02: available, exclusive physical port FINANCE-PC FastEthernet0
+PASS | 02: cable endpoint references resolve (3)
+PASS | 02: available, exclusive physical port BRANCH-SW2 FastEthernet0/5
+PASS | 02: available, exclusive physical port IT-PC FastEthernet0
+PASS | 02: cable endpoint references resolve (4)
+PASS | 02: available, exclusive physical port BRANCH-SW2 FastEthernet0/6
+PASS | 02: available, exclusive physical port GUEST-PC FastEthernet0
+PASS | 02: cable endpoint references resolve (5)
+PASS | 02: available, exclusive physical port BRANCH-R1 GigabitEthernet0/0
+PASS | 02: available, exclusive physical port BRANCH-SW1 GigabitEthernet0/1
+PASS | 02: cable endpoint references resolve (6)
+PASS | 02: available, exclusive physical port BRANCH-SW1 GigabitEthernet0/2
+PASS | 02: available, exclusive physical port BRANCH-SW2 GigabitEthernet0/1
+PASS | 02: cable endpoint references resolve (7)
+PASS | 02: available, exclusive physical port BRANCH-SW2 FastEthernet0/10
+PASS | 02: available, exclusive physical port DNS-SRV FastEthernet0
+PASS | 02: startup equals accepted running configuration on BRANCH-R1
+PASS | 02: saved SSH state provisioned on BRANCH-R1
+PASS | 02: startup equals accepted running configuration on BRANCH-SW1
+PASS | 02: saved SSH state provisioned on BRANCH-SW1
+PASS | 02: startup equals accepted running configuration on BRANCH-SW2
+PASS | 02: saved SSH state provisioned on BRANCH-SW2
+PASS | 02: documentation and test procedure present
+PASS | 03: unique device names
+PASS | 03: unique saved device identifiers
+PASS | 03: unique physical interface MAC addresses
+PASS | 03: cable endpoint references resolve (1)
+PASS | 03: available, exclusive physical port EDGE1 GigabitEthernet0/0
+PASS | 03: available, exclusive physical port ISP1 GigabitEthernet0/0
+PASS | 03: cable endpoint references resolve (2)
+PASS | 03: available, exclusive physical port ISP1 GigabitEthernet0/1
+PASS | 03: available, exclusive physical port INTERNET-PC FastEthernet0
+PASS | 03: cable endpoint references resolve (3)
+PASS | 03: available, exclusive physical port ISP1 GigabitEthernet0/2
+PASS | 03: available, exclusive physical port PUBLIC-SRV FastEthernet0
+PASS | 03: cable endpoint references resolve (4)
+PASS | 03: available, exclusive physical port EDGE1 GigabitEthernet0/1
+PASS | 03: available, exclusive physical port LAN-SW1 GigabitEthernet0/1
+PASS | 03: cable endpoint references resolve (5)
+PASS | 03: available, exclusive physical port EDGE1 GigabitEthernet0/2
+PASS | 03: available, exclusive physical port DMZ-SW1 GigabitEthernet0/1
+PASS | 03: cable endpoint references resolve (6)
+PASS | 03: available, exclusive physical port LAN-SW1 FastEthernet0/5
+PASS | 03: available, exclusive physical port USER-PC FastEthernet0
+PASS | 03: cable endpoint references resolve (7)
+PASS | 03: available, exclusive physical port LAN-SW1 FastEthernet0/6
+PASS | 03: available, exclusive physical port INFRA-SRV FastEthernet0
+PASS | 03: cable endpoint references resolve (8)
+PASS | 03: available, exclusive physical port DMZ-SW1 FastEthernet0/5
+PASS | 03: available, exclusive physical port WEB-SRV FastEthernet0
+PASS | 03: startup equals accepted running configuration on ISP1
+PASS | 03: startup equals accepted running configuration on EDGE1
+PASS | 03: saved SSH state provisioned on EDGE1
+PASS | 03: startup equals accepted running configuration on LAN-SW1
+PASS | 03: saved SSH state provisioned on LAN-SW1
+PASS | 03: startup equals accepted running configuration on DMZ-SW1
+PASS | 03: saved SSH state provisioned on DMZ-SW1
+PASS | 03: documentation and test procedure present
+PASS | 04: unique device names
+PASS | 04: unique saved device identifiers
+PASS | 04: unique physical interface MAC addresses
+PASS | 04: cable endpoint references resolve (1)
+PASS | 04: available, exclusive physical port SOC-SW1 FastEthernet0/5
+PASS | 04: available, exclusive physical port USER1 FastEthernet0
+PASS | 04: cable endpoint references resolve (2)
+PASS | 04: available, exclusive physical port SOC-SW1 FastEthernet0/6
+PASS | 04: available, exclusive physical port USER2 FastEthernet0
+PASS | 04: cable endpoint references resolve (3)
+PASS | 04: available, exclusive physical port SOC-SW2 FastEthernet0/5
+PASS | 04: available, exclusive physical port USER3 FastEthernet0
+PASS | 04: cable endpoint references resolve (4)
+PASS | 04: available, exclusive physical port SOC-SW2 FastEthernet0/6
+PASS | 04: available, exclusive physical port USER4 FastEthernet0
+PASS | 04: cable endpoint references resolve (5)
+PASS | 04: available, exclusive physical port SOC-R1 GigabitEthernet0/0
+PASS | 04: available, exclusive physical port SOC-SW1 GigabitEthernet0/1
+PASS | 04: cable endpoint references resolve (6)
+PASS | 04: available, exclusive physical port SOC-SW1 GigabitEthernet0/2
+PASS | 04: available, exclusive physical port SOC-SW2 GigabitEthernet0/1
+PASS | 04: cable endpoint references resolve (7)
+PASS | 04: available, exclusive physical port SOC-SW1 FastEthernet0/24
+PASS | 04: available, exclusive physical port ANALYST-PC FastEthernet0
+PASS | 04: cable endpoint references resolve (8)
+PASS | 04: available, exclusive physical port SOC-SW1 FastEthernet0/23
+PASS | 04: available, exclusive physical port SOC-ADMIN FastEthernet0
+PASS | 04: cable endpoint references resolve (9)
+PASS | 04: available, exclusive physical port SOC-SW2 FastEthernet0/24
+PASS | 04: available, exclusive physical port SYSLOG-SRV FastEthernet0
+PASS | 04: startup equals accepted running configuration on SOC-R1
+PASS | 04: saved SSH state provisioned on SOC-R1
+PASS | 04: startup equals accepted running configuration on SOC-SW1
+PASS | 04: saved SSH state provisioned on SOC-SW1
+PASS | 04: startup equals accepted running configuration on SOC-SW2
+PASS | 04: saved SSH state provisioned on SOC-SW2
+PASS | 04: documentation and test procedure present
+PASS | 05: unique device names
+PASS | 05: unique saved device identifiers
+PASS | 05: unique physical interface MAC addresses
+PASS | 05: cable endpoint references resolve (1)
+PASS | 05: available, exclusive physical port HQ-R1 GigabitEthernet0/0
+PASS | 05: available, exclusive physical port HQ-SW1 GigabitEthernet0/1
+PASS | 05: cable endpoint references resolve (2)
+PASS | 05: available, exclusive physical port HQ-R1 GigabitEthernet0/1
+PASS | 05: available, exclusive physical port BRANCH-R1 GigabitEthernet0/0
+PASS | 05: cable endpoint references resolve (3)
+PASS | 05: available, exclusive physical port HQ-R1 GigabitEthernet0/2
+PASS | 05: available, exclusive physical port BRANCH-R1 GigabitEthernet0/1
+PASS | 05: cable endpoint references resolve (4)
+PASS | 05: available, exclusive physical port BRANCH-R1 GigabitEthernet0/2
+PASS | 05: available, exclusive physical port BRANCH-SW1 GigabitEthernet0/1
+PASS | 05: cable endpoint references resolve (5)
+PASS | 05: available, exclusive physical port HQ-SW1 FastEthernet0/5
+PASS | 05: available, exclusive physical port HQ-PC FastEthernet0
+PASS | 05: cable endpoint references resolve (6)
+PASS | 05: available, exclusive physical port HQ-SW1 FastEthernet0/6
+PASS | 05: available, exclusive physical port DHCP-SRV FastEthernet0
+PASS | 05: cable endpoint references resolve (7)
+PASS | 05: available, exclusive physical port BRANCH-SW1 FastEthernet0/5
+PASS | 05: available, exclusive physical port BRANCH-PC FastEthernet0
+PASS | 05: startup equals accepted running configuration on HQ-R1
+PASS | 05: saved SSH state provisioned on HQ-R1
+PASS | 05: startup equals accepted running configuration on BRANCH-R1
+PASS | 05: saved SSH state provisioned on BRANCH-R1
+PASS | 05: startup equals accepted running configuration on HQ-SW1
+PASS | 05: saved SSH state provisioned on HQ-SW1
+PASS | 05: startup equals accepted running configuration on BRANCH-SW1
+PASS | 05: saved SSH state provisioned on BRANCH-SW1
+PASS | 05: documentation and test procedure present
+PASS | 01: CORE1 active dual-stack SDM and OSPFv3
+PASS | 01: CORE1 has all three DHCP scopes
+PASS | 01: CORE1 correct HSRP gateways
+PASS | 01: CORE2 active dual-stack SDM and OSPFv3
+PASS | 01: CORE2 has all three DHCP scopes
+PASS | 01: CORE2 correct HSRP gateways
+PASS | 01: simulated ISP return route
+PASS | 02: installed deny ip 10.20.20.0 0.0.0.255 10.20.10.0 0.0.0.255
+PASS | 02: installed deny ip 10.20.40.0 0.0.0.255 10.0.0.0 0.255.255.255
+PASS | 02: installed deny ip 10.20.40.0 0.0.0.255 172.16.0.0 0.15.255.255
+PASS | 02: installed deny ip 10.20.40.0 0.0.0.255 192.168.0.0 0.0.255.255
+PASS | 02: DAI enabled on BRANCH-SW1
+PASS | 02: DAI enabled on BRANCH-SW2
+PASS | 03: installed static PAT port 80
+PASS | 03: installed static PAT port 443
+PASS | 03: DMZ-to-inside deny installed
+PASS | 03: outside catch-all deny installed
+PASS | 04: both SPAN sources and destination retained
+PASS | 04: user SSH blocking rule retained
+PASS | 05: branch LAN/relay interface matches WAN cabling
+PASS | 05: IPv4/IPv6 AD200 branch backup routes
+PASS | 05: centralized branch DHCP scope enabled
+
+218 structural/configuration checks passed.
