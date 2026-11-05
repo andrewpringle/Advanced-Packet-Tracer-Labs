@@ -1,0 +1,128 @@
+! HQ-R1: native Packet Tracer accepted running configuration.
+! Enter configure terminal before pasting. Save with copy running-config startup-config.
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname HQ-R1
+!
+!
+!
+enable secret 5 $1$mERr$C7wac.PH39WKIwqqjtQE8/
+!
+!
+!
+!
+!
+!
+ip cef
+ipv6 unicast-routing
+!
+no ipv6 cef
+!
+!
+!
+username netadmin privilege 15 secret 5 $1$mERr$1j5AfM/N1KwdPiw15eETu/
+!
+!
+license udi pid CISCO2911/K9 sn LAB05000000
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name wan.lab
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description TO-HQ-SW1-GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ description HQ-LAN
+ encapsulation dot1Q 10
+ ip address 10.70.10.1 255.255.255.0
+ ipv6 address 2001:DB8:70:10::1/64
+ ipv6 ospf 20 area 0
+!
+interface GigabitEthernet0/0.999
+ description UNUSED-NATIVE-VLAN
+ encapsulation dot1Q 999 native
+ no ip address
+!
+interface GigabitEthernet0/1
+ description TO-BRANCH-R1-GigabitEthernet0/0
+ ip address 10.255.10.1 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:10::1/64
+ ipv6 ospf 20 area 0
+!
+interface GigabitEthernet0/2
+ description TO-BRANCH-R1-GigabitEthernet0/1
+ ip address 10.255.20.1 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:FFFF:20::1/64
+!
+interface Vlan1
+ no ip address
+!
+router ospf 20
+ router-id 70.70.70.1
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/0.999
+ network 10.70.10.0 0.0.0.255 area 0
+ network 10.255.10.0 0.0.0.3 area 0
+!
+ipv6 router ospf 20
+ router-id 70.70.70.1
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/0.999
+!
+ip classless
+ip route 10.80.10.0 255.255.255.0 10.255.20.2 200
+!
+ip flow-export version 9
+!
+ipv6 route 2001:DB8:80:10::/64 2001:DB8:FFFF:20::2 200
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+!
+end

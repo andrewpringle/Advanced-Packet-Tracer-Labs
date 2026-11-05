@@ -1,0 +1,206 @@
+! HQ-SW1: native Packet Tracer accepted running configuration.
+! Enter configure terminal before pasting. Save with copy running-config startup-config.
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname HQ-SW1
+!
+enable secret 5 $1$mERr$C7wac.PH39WKIwqqjtQE8/
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name wan.lab
+!
+username netadmin secret 5 $1$mERr$1j5AfM/N1KwdPiw15eETu/
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/2
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/3
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/4
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/5
+ description TO-HQ-PC-FastEthernet0
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/6
+ description TO-DHCP-SRV-FastEthernet0
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/7
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/8
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/9
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/10
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/11
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/12
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/13
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/14
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/15
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/16
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/17
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/18
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/19
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/20
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/21
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/22
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/23
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/24
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/1
+ description TO-HQ-R1-GigabitEthernet0/0
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ description UNUSED-PARKED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan10
+ ip address 10.70.10.2 255.255.255.0
+!
+ip default-gateway 10.70.10.1
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login
+!
+!
+!
+!
+end
